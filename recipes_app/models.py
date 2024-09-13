@@ -15,15 +15,20 @@ class Dish(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.TextField(max_length=512, null=True, blank=True)
     dish_type = models.ForeignKey(to="DishType", related_name="dishes", on_delete=models.CASCADE)
-    cooking_time = models.CharField(max_length=64)
+    cooking_time = models.IntegerField()
     ingredients = models.ManyToManyField(to="Ingredient", related_name="ingredient_dishes")
-    how_to_cook = models.TextField(max_length=2048)
-    time = models.DateTimeField(auto_now_add=True)
+    how_to_cook = models.TextField(max_length=4096)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = "dishes"
         db_table = "dish"
         ordering = ["name"]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(cooking_time__gte=0),
+                name="cooking_time_limit")
+        ]
 
     def __str__(self):
         return f"{self.name} - {self.description} (type: {self.dish_type.name}, rating: {self.user_rates.aggregate(Avg('self__value'))})"
