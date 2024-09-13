@@ -31,7 +31,13 @@ class Dish(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.name} - {self.description} (type: {self.dish_type.name}, rating: {self.user_rates.aggregate(Avg('self__value'))})"
+        return f"""
+            {self.name} - {self.description} 
+            (
+            type: {self.dish_type.name}, 
+            rating: {self.user_rates.aggregate(Avg('self__value'))}
+            )
+        """
 
 
 class Ingredient(models.Model):
