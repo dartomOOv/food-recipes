@@ -42,6 +42,7 @@ class Dish(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    amount = models.CharField(max_length=64)
     category = models.ForeignKey(to="Category", on_delete=models.CASCADE, related_name="products")
 
     def __str__(self):
