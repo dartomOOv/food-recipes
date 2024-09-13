@@ -74,15 +74,6 @@ class DishRating(models.Model):
         ]
 
 
-class DishLike(models.Model):
-    dish = models.ForeignKey(to="Dish", on_delete=models.CASCADE, related_name="user_likes")
-    user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="liked_dishes")
-
-    class Meta:
-        unique_together = ["dish", "user"]
-        db_table = "dish_like"
-
-
 class CreatedUserDish(models.Model):
     dish = models.ForeignKey(to="Dish", on_delete=models.CASCADE, related_name="user_dishes")
     user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="created_dishes")
