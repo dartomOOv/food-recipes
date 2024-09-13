@@ -1,3 +1,6 @@
 .idea
 env
 config/__pycache__/
+/db.sqlite3
+recipes_app/__pycache__/
+recipes_app/migrations/__pycache__/
