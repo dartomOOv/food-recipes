@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import Avg
 
 from config.settings import AUTH_USER_MODEL
 
@@ -37,9 +36,19 @@ class Dish(models.Model):
         """
 
 
+class IngredientAmount(models.Model):
+    ingredient = models.ForeignKey(to="Ingredient", on_delete=models.CASCADE, related_name="amounts")
+    amount = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.ingredient}, {self.amount}"
+
+    class Meta:
+        db_table = "ingredient_amount"
+
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=64, unique=True)
-    # amount = models.ForeignKey(to="Amount", on_delete=models.CASCADE, related_name="products")
     category = models.ForeignKey(to="Category", on_delete=models.CASCADE, related_name="products")
 
     def __str__(self):
@@ -48,17 +57,6 @@ class Ingredient(models.Model):
     class Meta:
         db_table = "ingredient"
 
-
-class IngredientAmount(models.Model):
-    # dish = models.ForeignKey(to="Dish", on_delete=models.CASCADE, related_name="i_amount")
-    ingredient = models.ForeignKey(to="Ingredient", on_delete=models.CASCADE, related_name="amount")
-    amount = models.CharField(max_length=64)
-
-    def __str__(self):
-        return f"{self.ingredient}, {self.amount}"
-
-    # def get_ingredients(self):
-    #     return "\n".join([obj for obj in self.objects.all()])
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -71,10 +69,6 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
 
-class Amount(models.Model):
-    amount = models.CharField(max_length=64)
-
-
 class DishType(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
@@ -83,6 +77,7 @@ class DishType(models.Model):
 
     class Meta:
         db_table = "dish_type"
+
 
 class DishRating(models.Model):
     dish = models.ForeignKey(to="Dish", on_delete=models.CASCADE, related_name="user_rates")
