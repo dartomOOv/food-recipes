@@ -16,7 +16,7 @@ class Dish(models.Model):
     description = models.TextField(max_length=512, null=True, blank=True)
     dish_type = models.ForeignKey(to="DishType", related_name="dishes", on_delete=models.CASCADE)
     cooking_time = models.IntegerField()
-    ingredients = models.ManyToManyField(to="Ingredient", related_name="ingredient_dishes")
+    ingredients = models.ManyToManyField(to="IngredientAmount", related_name="dishes")
     how_to_cook = models.TextField(max_length=4096)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -33,16 +33,13 @@ class Dish(models.Model):
     def __str__(self):
         return f"""
             {self.name} - {self.description} 
-            (
-            type: {self.dish_type.name}, 
-            rating: {self.user_rates.aggregate(Avg('self__value'))}
-            )
+            (type: {self.dish_type.name})
         """
 
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=64, unique=True)
-    amount = models.CharField(max_length=64)
+    # amount = models.ForeignKey(to="Amount", on_delete=models.CASCADE, related_name="products")
     category = models.ForeignKey(to="Category", on_delete=models.CASCADE, related_name="products")
 
     def __str__(self):
@@ -51,6 +48,17 @@ class Ingredient(models.Model):
     class Meta:
         db_table = "ingredient"
 
+
+class IngredientAmount(models.Model):
+    # dish = models.ForeignKey(to="Dish", on_delete=models.CASCADE, related_name="i_amount")
+    ingredient = models.ForeignKey(to="Ingredient", on_delete=models.CASCADE, related_name="amount")
+    amount = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.ingredient}, {self.amount}"
+
+    # def get_ingredients(self):
+    #     return "\n".join([obj for obj in self.objects.all()])
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -61,6 +69,10 @@ class Category(models.Model):
     class Meta:
         db_table = "category"
         verbose_name_plural = "categories"
+
+
+class Amount(models.Model):
+    amount = models.CharField(max_length=64)
 
 
 class DishType(models.Model):
