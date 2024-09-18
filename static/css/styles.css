@@ -1,0 +1,95 @@
+/* custom styles */
+
+body {
+    font-family: Monospace, serif;
+}
+
+.animated-background {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+.round-corners {
+    border-radius: 10px;
+}
+
+/*---END custom styles---*/
+/* bootstrap modified styles */
+
+.cover-background {
+    position: relative !important;
+    background-size: cover !important;
+    overflow: hidden !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.p-0 {
+    padding: 0!important;
+}
+
+.error-page {
+    background-color: darkslategrey;
+    opacity: 0.7;
+    -webkit-backdrop-filter: blur(9px);
+    backdrop-filter: blur(15px);
+    border: 4px solid rgba(234,234,235,0.2);
+    padding: 80px 20px;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.error-page h1 {
+    font-size: 100px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.text-secondary {
+    color: #15395A !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem!important;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+/*---END bootstrap modified styles---*/
