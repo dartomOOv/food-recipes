@@ -1,0 +1,25 @@
+{% extends "base/wp_background.html" %}
+{% block wp_content %}
+  <div class="container-fluid d-flex flex-column">
+    <div class="row align-items-center justify-content-center align-center">
+      <div class="col-md-9 col-lg-6 my-5">
+        <div class="text-center error-page round-corners ">
+          <h1 class="mb-5 text-secondary logo">Food Recipes</h1>
+          <h2 class="mb-4 text-white">Welcome to the food blog website!</h2>
+          <p class="w-sm-80 mx-auto mb-4 text-white">
+            <strong>
+              If you ever wanted to share some of your best food recipes with others or find something interesting to
+              cook, this place just for you!
+            </strong>
+          </p>
+          <div>
+            <a href="{% url 'recipes:registration-page' %}" class="btn btn-warning btn-lg me-sm-2 mb-2 mb-sm-0">Get
+              started...</a>
+          </div>
+          <br>
+          <p><strong>Already have an account? <a href="{% url 'recipes:login-page' %}">Sign in!</a></strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
