@@ -4,7 +4,7 @@
     <div class="row align-items-center justify-content-center align-center">
       <div class="col-md-9 col-lg-6 my-5">
         <div class="text-center error-page round-corners ">
-          <h1 class="mb-5 text-secondary logo">Food Recipes</h1>
+          <h1 class="mb-5 text-logo">Food Recipes</h1>
           <h2 class="mb-4 text-white">Welcome to the food blog website!</h2>
           <p class="w-sm-80 mx-auto mb-4 text-white">
             <strong>
@@ -13,11 +13,12 @@
             </strong>
           </p>
           <div>
-            <a href="{% url 'recipes:registration-page' %}" class="btn btn-warning btn-lg me-sm-2 mb-2 mb-sm-0">Get
-              started...</a>
+            <a href="{% url 'recipes:registration-page' %}" class="btn btn-warning btn-lg me-sm-2 mb-2 mb-sm-0">
+              <strong>Get started...</strong>
+            </a>
           </div>
           <br>
-          <p><strong>Already have an account? <a href="{% url 'recipes:login-page' %}">Sign in!</a></strong></p>
+          <p class="text-white"><strong>Already have an account? <a href="{% url 'recipes:login-page' %}">Sign in!</a></strong></p>
         </div>
       </div>
     </div>
