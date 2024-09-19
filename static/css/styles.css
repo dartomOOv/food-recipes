@@ -4,6 +4,10 @@ body {
     font-family: Monospace, serif;
 }
 
+.text-logo {
+    color: #cfcfcf;
+}
+
 .animated-background {
 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;
@@ -15,7 +19,7 @@ body {
     border-radius: 10px;
 }
 
-/*---END custom styles---*/
+/*---END--- custom styles ---END---*/
 /* bootstrap modified styles */
 
 .cover-background {
