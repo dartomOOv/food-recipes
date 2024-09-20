@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
 
 from config.settings import AUTH_USER_MODEL
@@ -35,6 +36,9 @@ class Dish(models.Model):
             {self.name} - {self.description} 
             (type: {self.dish_type.name})
         """
+
+    def get_absolute_url(self):
+        return reverse('recipes:recipe-detail', kwargs={'slug': self.slug})
 
 
 class IngredientAmount(models.Model):
@@ -109,5 +113,4 @@ class SavedUserDish(models.Model):
     user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="saved_dishes")
 
     class Meta:
-        unique_together = ["dish", "user"]
         db_table = "saved_user_dish"
