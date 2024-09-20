@@ -9,7 +9,10 @@
       </div>
       <div class="btn-group mr-2">
           <a class="btn btn-outline-secondary p-2 text-white" href="#">Profile</a>
-          <a class="btn btn-outline-danger p-2 text-white" href="#">Logout</a>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger p-2 text-white">Logout</button>
+          </form>     
       </div>
     </div>
   </div>
