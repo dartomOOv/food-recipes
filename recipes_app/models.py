@@ -114,5 +114,4 @@ class SavedUserDish(models.Model):
     user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="saved_dishes")
 
     class Meta:
-        unique_together = ["dish", "user"]
         db_table = "saved_user_dish"
