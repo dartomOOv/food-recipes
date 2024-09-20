@@ -5,23 +5,24 @@
   <div class="container mt-5">
     <h1 class="mb-4 text-center text-white"><strong>Our Dishes</strong></h1>
 
-    <!-- First Dish -->
-    <a href="" class="dish-card">
-      <img src="https://via.placeholder.com/150" alt="Dish Image">
-      <div class="dish-info">
-        <h5>Dish Name</h5>
-        <small><strong>Author:</strong> John Doe</small>
-        <small><strong>Rating:</strong> 4.5</small>
-        <small><strong>Time to cook:</strong> 30 minutes</small>
-        <small><strong>Dish type:</strong> Italian</small>
-      </div>
-      <div class="dish-description-box">
-        <p class="dish-description">
-          This is a description of the dish. It can be a short teaser or a brief summary about the dish's flavors,
-          ingredients, and preparation method.
-        </p>
-      </div>
-    </a>
+    {% for dish in dishes %}
+      <a href="{% url 'recipes:recipe-detail' dish.slug %}" class="dish-card">
+        <img src="https://via.placeholder.com/150" alt="Dish Image">
+        <div class="dish-info">
+          <h5>{{ dish.name }}</h5>
+          <small><strong>Author:</strong> John Doe</small>
+          <small><strong>Rating:</strong> 4.5</small>
+          <small><strong>Time to cook:</strong> {{ dish.cooking_time }} minutes</small>
+          <small><strong>Dish type:</strong> {{ dish.dish_type }}</small>
+          <small><strong>Added:</strong> {{ dish.created_at.day }}/{{ dish.created_at.month }}/{{ dish.created_at.year }}</small>
+        </div>
+        <div class="dish-description-box transparent_bg">
+          <p class="dish-description">
+            {{ dish.description }}
+          </p>
+        </div>
+      </a>
+    {% endfor %}
 
     <!-- Second Dish -->
     <a href="" class="dish-card">
