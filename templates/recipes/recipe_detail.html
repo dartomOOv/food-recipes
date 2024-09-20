@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load existence_check %}
 {% block base %}
   {% include 'base/nav/header.html' %}
   <div class="container">
@@ -35,10 +36,10 @@
 
     <!-- Back Button -->
     <a href="{% url 'recipes:recipes-list' %}" class="btn btn-warning">Back to Dishes</a>
-    {% if dish in user.saved_dishes.all %}
-      <a href="{% url 'recipes:recipes-list' %}" class="btn btn-light">Remove From Saved</a>
+    {% if dish|dish_is_saved:user %}
+      <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-light">Remove From Saved</a>
     {% else %}
-      <a href="{% url 'recipes:recipes-list' %}" class="btn btn-outline-light">Save Dish</a>
+      <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-outline-light">Save Dish</a>
     {% endif %}
     <a href="{% url 'recipes:recipes-list' %}" class="btn btn-primary">Rate Dish</a>
 </div>
