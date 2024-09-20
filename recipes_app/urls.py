@@ -4,6 +4,7 @@ from recipes_app.views import (
     main_page,
     CustomLoginView,
     RecipeDetailView,
+    SaveRemoveRecipe,
 )
 
 urlpatterns = [
@@ -11,5 +12,6 @@ urlpatterns = [
     path("login", CustomLoginView.as_view(), name="login-page"),
     path("", main_page, name="recipes-list"),
     path("<slug:slug>/", RecipeDetailView.as_view(), name="recipe-detail"),
+    path("<slug:slug>/save", SaveRemoveRecipe.as_view(), name="recipe-save-remove"),
 ]
 app_name = "recipes"
