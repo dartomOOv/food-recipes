@@ -1,7 +1,8 @@
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
-from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.views import LoginView, LogoutView
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic, View
@@ -13,6 +14,7 @@ from recipes_app.models import Dish, SavedUserDish
 def index(request: HttpRequest) -> HttpResponse:
 
     return render(request, "base/welcome_page.html")
+
 
 def registration(request: HttpRequest) -> HttpResponse:
 
