@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -25,7 +27,7 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse("recipes:recipes-list")
 
-
+@login_required
 def main_page(request: HttpRequest) -> HttpResponse:
     dishes = Dish.objects.all()
     context = {
@@ -34,3 +36,8 @@ def main_page(request: HttpRequest) -> HttpResponse:
 
     return render(request, "recipes/recipes_list.html", context=context)
 
+
+class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
+    template_name = "recipes/recipe_detail.html"
+    model = Dish
+    slug_field = "slug"
