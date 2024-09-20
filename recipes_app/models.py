@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django_extensions.db.fields import AutoSlugField
 
 from config.settings import AUTH_USER_MODEL
-
 
 class User(AbstractUser):
 
@@ -18,6 +18,7 @@ class Dish(models.Model):
     ingredients = models.ManyToManyField(to="IngredientAmount", related_name="dishes")
     how_to_cook = models.TextField(max_length=4096)
     created_at = models.DateTimeField(auto_now_add=True)
+    slug = AutoSlugField(populate_from=["name", "created_at__microseconds"])
 
     class Meta:
         verbose_name_plural = "dishes"
