@@ -18,7 +18,7 @@ class Dish(models.Model):
     ingredients = models.ManyToManyField(to="IngredientAmount", related_name="dishes")
     how_to_cook = models.TextField(max_length=4096)
     created_at = models.DateTimeField(auto_now_add=True)
-    slug = AutoSlugField(populate_from=["name", "created_at__microseconds"])
+    slug = AutoSlugField(populate_from=["name", "created_at__microsecond"])
 
     class Meta:
         verbose_name_plural = "dishes"
