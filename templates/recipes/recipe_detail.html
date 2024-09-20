@@ -1,4 +1,45 @@
 {% extends "base/base.html" %}
 {% block base %}
-  
+  {% include 'base/nav/header.html' %}
+  <div class="container">
+    <!-- Dish Name -->
+    <h1>{{ dish.name }}</h1>
+
+    <!-- Dish Info -->
+    <div class="fine-box transparent_bg">
+        <p>
+          <strong>Author:</strong>
+          {% for author in dish.user_dishes.all %}
+            <a href="" style="color: yellow">{{ author.user.username }}</a>
+          {% endfor %}
+        </p>
+        <p><strong>Dish Type:</strong> {{ dish.dish_type }}</p>
+        <p><strong>Cooking Time:</strong> {{ dish.cooking_time }} minutes</p>
+        <p><strong>Description:</strong> {{ dish.description }}</p>
+        <p><strong>Added:</strong> {{ dish.created_at }}</p>
+    </div>
+
+    <!-- Ingredients -->
+    <h3>Ingredients:</h3>
+    <ul class="ingredients-list ">
+      {% for ingredient in dish.ingredients.all %}
+        <li class="transparent_bg"><input type="checkbox"> {{ ingredient.ingredient.name }}, {{ ingredient.amount }}</li>
+      {% endfor %}
+    </ul>
+
+    <!-- Instructions -->
+    <h3>How to Cook:</h3>
+    <div class="fine-box transparent_bg">
+      {{ dish.how_to_cook }}
+    </div>
+
+    <!-- Back Button -->
+    <a href="{% url 'recipes:recipes-list' %}" class="btn btn-warning">Back to Dishes</a>
+    {% if dish in user.saved_dishes.all %}
+      <a href="{% url 'recipes:recipes-list' %}" class="btn btn-light">Remove From Saved</a>
+    {% else %}
+      <a href="{% url 'recipes:recipes-list' %}" class="btn btn-outline-light">Save Dish</a>
+    {% endif %}
+    <a href="{% url 'recipes:recipes-list' %}" class="btn btn-primary">Rate Dish</a>
+</div>
 {% endblock %}
