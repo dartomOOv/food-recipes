@@ -1,6 +1,7 @@
 from django import template
+from django.db.models import Avg
 
-from recipes_app.models import SavedUserDish
+from recipes_app.models import SavedUserDish, DishRating
 
 register = template.Library()
 
@@ -15,3 +16,11 @@ def join_authors(user_dishes):
 def dish_is_saved(dish, user):
     filtered = SavedUserDish.objects.filter(dish=dish, user=user)
     return filtered.exists()
+
+
+@register.filter
+def average_rating(dish):
+    avg_rate = DishRating.objects.filter(dish=dish)
+    if avg_rate.exists():
+        return avg_rate.aggregate(avg_rate=Avg("rating"))["avg_rate"]
+    return "N/A"
