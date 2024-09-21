@@ -5,6 +5,7 @@ from recipes_app.models import SavedUserDish, DishRating
 
 register = template.Library()
 
+
 @register.filter
 def join_authors(user_dishes):
     return ", ".join(
