@@ -70,3 +70,12 @@ class SaveRemoveRecipe(LoginRequiredMixin, View):
         else:
             SavedUserDish.objects.create(dish=dish, user=request.user)
         return redirect(dish.get_absolute_url())
+
+
+class SavedRecipes(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        queryset = SavedUserDish.objects.filter(user=request.user).select_related("dish")
+        context = {
+            "queryset": queryset
+        }
+        return render(request, "profile/saved_recipes.html", context=context)
