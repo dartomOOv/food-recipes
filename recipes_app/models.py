@@ -106,7 +106,6 @@ class CreatedUserDish(models.Model):
     user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="created_dishes")
 
     class Meta:
-        unique_together = ["dish", "user"]
         db_table = "created_user_dish"
 
 
