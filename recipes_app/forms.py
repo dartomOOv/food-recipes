@@ -10,6 +10,74 @@ from django.utils.translation import gettext_lazy as _
 from recipes_app.models import DishRating
 
 
+class CustomRegisterForm(UserCreationForm):
+    username = UsernameField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control input-sm",
+                "placeholder": "Your username",
+            }
+        )
+    )
+    first_name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control input-sm",
+                "placeholder": "Your first name",
+            }
+        )
+    )
+    last_name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control input-sm",
+                "placeholder": "Your last name",
+            }
+        )
+    )
+
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-control input-sm",
+                "placeholder": "Your email",
+            }
+        )
+    )
+    password1 = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control input-sm",
+                "placeholder": "Password",
+            }
+        )
+    )
+    password2 = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control input-sm",
+                "placeholder": "Confirm password",
+            }
+        )
+    )
+    class Meta:
+        model = get_user_model()
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "password1",
+            "password2"
+        ]
+
+
 class UserLoginForm(AuthenticationForm):
     username = UsernameField(
         widget=forms.TextInput(
