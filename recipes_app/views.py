@@ -28,14 +28,14 @@ class CustomLoginView(LoginView):
         return reverse("recipes:recipes-list")
 
 
-@login_required
-def main_page(request: HttpRequest) -> HttpResponse:
-    dishes = Dish.objects.all()
-    context = {
-        "dishes": dishes
-    }
+class MainPageView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        dishes = Dish.objects.all()
+        context = {
+            "dishes": dishes
+        }
 
-    return render(request, "recipes/recipes_list.html", context=context)
+        return render(request, "recipes/recipes_list.html", context=context)
 
 
 class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
