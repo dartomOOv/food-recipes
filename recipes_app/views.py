@@ -1,14 +1,17 @@
+from itertools import combinations
+
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.db.transaction import commit
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic, View
 
 from recipes_app.forms import UserLoginForm, RatingForm
-from recipes_app.models import Dish, SavedUserDish
+from recipes_app.models import Dish, SavedUserDish, DishRating
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -50,6 +53,17 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        dish_slug = kwargs["slug"]
+        dish = get_object_or_404(Dish, slug=dish_slug)
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.user = request.user
+            rating.dish = dish
+            rating.save()
+            return redirect(dish.get_absolute_url())
+        return redirect(dish.get_absolute_url())
 
 
 class SaveRemoveRecipe(LoginRequiredMixin, View):

@@ -44,11 +44,15 @@
       {% else %}
         <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-outline-light mr-3">Save Dish</a>
       {% endif %}
-      <form action="" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Rate Dish</button>
-        {{ form.rating }}
-      </form>
+      {% if not dish|dish_rated:user %}
+        <form action="" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Rate Dish</button>
+          {{ form.rating }}
+        </form>
+      {% else %}
+        <p>You already rated this dish</p>
+      {% endif %}
     </div>
   </div>
 
