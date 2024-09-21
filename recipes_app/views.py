@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic, View
 
-from recipes_app.forms import UserLoginForm
+from recipes_app.forms import UserLoginForm, RatingForm
 from recipes_app.models import Dish, SavedUserDish
 
 
@@ -42,6 +42,14 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "recipes/recipe_detail.html"
     model = Dish
     slug_field = "slug"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = RatingForm()
+        context["form"] = form
+
+        return context
+
 
 
 class SaveRemoveRecipe(LoginRequiredMixin, View):
