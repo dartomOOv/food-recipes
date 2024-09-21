@@ -217,3 +217,10 @@ h1 {
     border: none;
 }
 
+.profile-header {
+    background-color: #5e35b1;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}

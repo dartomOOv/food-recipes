@@ -1,0 +1,28 @@
+{% include 'base/base.html' %}
+{% block base %}
+  {% include 'base/nav/header.html' %}
+  <div class="container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <h1>{{ author.username }}'s
+        {% if author == user %} (Your) {% endif %}
+        Profile</h1>
+      <p>Email: {{ author.email }}</p>
+      <p>Member Since: {{ author.date_joined|date:"F d, Y" }}</p>
+    </div>
+    {% if user == author %}
+    <!-- Buttons for additional actions -->
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <a href="" class="btn btn-warning mr-3">Saved Dishes</a>
+        <a href="" class="btn btn-light mr-3">My dishes</a>
+        <a href="" class="btn btn-success mr-3">Edit Profile</a>
+      </div>
+      <a href="" class="btn btn-danger mr-3 content-left">Delete Account</a>
+    </div>
+    {% else %}
+      <a href="" class="btn btn-light mr-3">{{ author.username }}'s Dishes</a>
+  {% endif %}
+  </div>
+{% endblock %}
+
