@@ -15,7 +15,7 @@
         {% endfor %}
       </p>
       <p><strong>Dish Type:</strong> {{ dish.dish_type }}</p>
-      <p><strong>Dish Rating:</strong> {{ dish|average_rating }}</p>
+      <p><strong>Dish Rating:</strong> {{ dish|average_dish_rating }}</p>
       <p><strong>Cooking Time:</strong> {{ dish.cooking_time }} minutes</p>
       <p><strong>Description:</strong> {{ dish.description }}</p>
       <p><strong>Added:</strong> {{ dish.created_at }}</p>
