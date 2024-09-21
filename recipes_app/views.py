@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
 from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm
-from recipes_app.models import Dish, SavedUserDish, DishRating, User
+from recipes_app.models import Dish, SavedUserDish, DishRating, User, CreatedUserDish
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -93,6 +93,15 @@ class SavedRecipes(LoginRequiredMixin, View):
             "queryset": queryset
         }
         return render(request, "profile/saved_recipes.html", context=context)
+
+
+class CreatedRecipes(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        queryset = CreatedUserDish.objects.filter(user=request.user).select_related("dish")
+        context = {
+            "queryset": queryset
+        }
+        return render(request, "profile/created_recipes.html", context=context)
 
 
 class ProfileView(LoginRequiredMixin, generic.DetailView):
