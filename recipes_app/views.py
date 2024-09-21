@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.db import transaction
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
-from recipes_app.forms import UserLoginForm, RatingForm
+from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm
 from recipes_app.models import Dish, SavedUserDish, DishRating
 
 
@@ -13,8 +14,20 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "base/welcome_page.html")
 
 
-def registration(request: HttpRequest) -> HttpResponse:
-    return render(request, "accounts/registration.html")
+class CustomRegisterView(generic.FormView):
+    form_class = CustomRegisterForm
+    template_name = "accounts/registration.html"
+
+    def form_valid(self, form):
+        with transaction.atomic():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("login-page")
 
 
 class CustomLoginView(LoginView):
@@ -23,7 +36,7 @@ class CustomLoginView(LoginView):
     success_url = "recipes/recipes_list.html"
 
     def get_success_url(self):
-        return reverse("recipes:recipes-list")
+        return reverse_lazy("recipes:recipes-list")
 
 
 class MainPageView(LoginRequiredMixin, View):
