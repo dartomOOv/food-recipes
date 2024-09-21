@@ -102,6 +102,10 @@ body {
 /*---END--- bootstrap modified styles ---END---*/
 /* dish list display styles */
 
+.text-right {
+    display: flex;
+}
+
 .dish-card {
     text-decoration: none;
     background: linear-gradient(160deg, #aa00ff, #c5c200);
@@ -204,3 +208,12 @@ h1 {
 .btn-back:hover {
     background-color: #e6a71f;
 }
+
+.rating-section {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #9575cd;
+    color: #fff;
+    border: none;
+}
+
