@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, get_user
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.db import transaction
@@ -97,7 +97,8 @@ class SavedRecipes(LoginRequiredMixin, View):
 
 class CreatedRecipes(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        queryset = CreatedUserDish.objects.filter(user=request.user).select_related("dish")
+        user = get_user_model().objects.get(slug=kwargs["slug"])
+        queryset = CreatedUserDish.objects.filter(user=user).select_related("dish")
         context = {
             "queryset": queryset
         }
@@ -106,6 +107,6 @@ class CreatedRecipes(LoginRequiredMixin, View):
 
 class ProfileView(LoginRequiredMixin, generic.DetailView):
     slug_field = "slug"
-    model = User
+    model = get_user_model()
     template_name = "profile/user_info.html"
     context_object_name = "author"
