@@ -8,24 +8,25 @@
 
     <!-- Dish Info -->
     <div class="fine-box transparent_bg">
-        <p>
-          <strong>Author:</strong>
-          {% for author in dish.user_dishes.all %}
-            <a href="" style="color: yellow">{{ author.user.username }}</a>
-          {% endfor %}
-        </p>
-        <p><strong>Dish Type:</strong> {{ dish.dish_type }}</p>
-        <p><strong>Dish Rating:</strong> {{ dish|average_rating }}</p>
-        <p><strong>Cooking Time:</strong> {{ dish.cooking_time }} minutes</p>
-        <p><strong>Description:</strong> {{ dish.description }}</p>
-        <p><strong>Added:</strong> {{ dish.created_at }}</p>
+      <p>
+        <strong>Author:</strong>
+        {% for author in dish.user_dishes.all %}
+          <a href="" style="color: yellow">{{ author.user.username }}</a>
+        {% endfor %}
+      </p>
+      <p><strong>Dish Type:</strong> {{ dish.dish_type }}</p>
+      <p><strong>Dish Rating:</strong> {{ dish|average_rating }}</p>
+      <p><strong>Cooking Time:</strong> {{ dish.cooking_time }} minutes</p>
+      <p><strong>Description:</strong> {{ dish.description }}</p>
+      <p><strong>Added:</strong> {{ dish.created_at }}</p>
     </div>
 
     <!-- Ingredients -->
     <h3>Ingredients:</h3>
     <ul class="ingredients-list ">
       {% for ingredient in dish.ingredients.all %}
-        <li class="transparent_bg"><input type="checkbox"> {{ ingredient.ingredient.name }}, {{ ingredient.amount }}</li>
+        <li class="transparent_bg"><input type="checkbox"> {{ ingredient.ingredient.name }}, {{ ingredient.amount }}
+        </li>
       {% endfor %}
     </ul>
 
@@ -37,25 +38,25 @@
 
     <!-- Back Button -->
     <div class="text-right">
-    <a href="{% url 'recipes:recipes-list' %}" class="btn btn-warning mr-3">Back to Dishes</a>
-    {% if dish|dish_is_saved:user %}
-      <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-light mr-3">Remove From Saved</a>
-    {% else %}
-      <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-outline-light mr-3">Save Dish</a>
-    {% endif %}
-    <form action="" method="post" class="inline-block" name="rating-form">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-primary">Rate Dish</button>
-      <select class="rating-section" name="rating">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+      <a href="{% url 'recipes:recipes-list' %}" class="btn btn-warning mr-3">Back to Dishes</a>
+      {% if dish|dish_is_saved:user %}
+        <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-light mr-3">Remove From Saved</a>
+      {% else %}
+        <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-outline-light mr-3">Save Dish</a>
+      {% endif %}
+      <form action="" method="post" class="inline-block" name="rating-form">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Rate Dish</button>
+        <select class="rating-section" name="rating">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </form>
     </div>
-    </div>
+  </div>
 
 {% endblock %}

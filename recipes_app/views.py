@@ -12,12 +12,10 @@ from recipes_app.models import Dish, SavedUserDish
 
 
 def index(request: HttpRequest) -> HttpResponse:
-
     return render(request, "base/welcome_page.html")
 
 
 def registration(request: HttpRequest) -> HttpResponse:
-
     return render(request, "accounts/registration.html")
 
 
@@ -28,6 +26,7 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         return reverse("recipes:recipes-list")
+
 
 @login_required
 def main_page(request: HttpRequest) -> HttpResponse:
@@ -43,6 +42,7 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "recipes/recipe_detail.html"
     model = Dish
     slug_field = "slug"
+
 
 class SaveRemoveRecipe(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
