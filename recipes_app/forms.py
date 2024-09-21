@@ -35,7 +35,7 @@ class UserLoginForm(AuthenticationForm):
 
 class RatingForm(forms.ModelForm):
     rating = forms.ChoiceField(
-        choices=[("zero", 0), ("one", 1), ("Two", 2), ("Three", 3), ("Four", 4), ("Five", 5)],
+        choices=[(0, "0"), (1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")],
         widget=forms.Select(
             attrs={
                 "class": "rating-section"
