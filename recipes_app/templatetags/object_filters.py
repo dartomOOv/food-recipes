@@ -24,3 +24,9 @@ def average_rating(dish):
     if avg_rate.exists():
         return avg_rate.aggregate(avg_rate=Avg("rating"))["avg_rate"]
     return "N/A"
+
+
+@register.filter
+def dish_rated(dish, user):
+    filtered = DishRating.objects.filter(dish=dish, user=user)
+    return filtered.exists()
