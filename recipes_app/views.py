@@ -110,3 +110,15 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
     model = get_user_model()
     template_name = "profile/user_info.html"
     context_object_name = "author"
+
+
+class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
+    slug_field = "slug"
+    model = get_user_model()
+    fields = ["username", "first_name", "last_name"]
+    template_name = "profile/profile_update.html"
+    success_url = reverse_lazy("recipes:profile")
+
+    def get_success_url(self):
+        user = self.request.user
+        return reverse_lazy("recipes:profile", kwargs={"slug": user.slug})
