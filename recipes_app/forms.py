@@ -7,6 +7,8 @@ from django.contrib.auth.forms import (
 )
 from django.utils.translation import gettext_lazy as _
 
+from recipes_app.models import DishRating
+
 
 class UserLoginForm(AuthenticationForm):
     username = UsernameField(
@@ -30,3 +32,16 @@ class UserLoginForm(AuthenticationForm):
         ),
     )
 
+
+class RatingForm(forms.ModelForm):
+    rating = forms.ChoiceField(
+        choices=[("zero", 0), ("one", 1), ("Two", 2), ("Three", 3), ("Four", 4), ("Five", 5)],
+        widget=forms.Select(
+            attrs={
+                "class": "rating-section"
+            }
+        )
+    )
+    class Meta:
+        model = DishRating
+        fields = ["rating"]
