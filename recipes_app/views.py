@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.db import transaction
@@ -7,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
 from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm
-from recipes_app.models import Dish, SavedUserDish, DishRating
+from recipes_app.models import Dish, SavedUserDish, DishRating, User
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -92,3 +93,10 @@ class SavedRecipes(LoginRequiredMixin, View):
             "queryset": queryset
         }
         return render(request, "profile/saved_recipes.html", context=context)
+
+
+class ProfileView(LoginRequiredMixin, generic.DetailView):
+    slug_field = "slug"
+    model = User
+    template_name = "profile/user_info.html"
+    context_object_name = "author"
