@@ -6,6 +6,7 @@ from django_extensions.db.fields import AutoSlugField
 from config.settings import AUTH_USER_MODEL
 
 class User(AbstractUser):
+    slug = AutoSlugField(populate_from=["date_joined__second", "username", "date_joined__microsecond"])
 
     def __str__(self):
         return f"{self.username} ({self.first_name}, {self.last_name})"
