@@ -88,7 +88,7 @@ class DishType(models.Model):
 class DishRating(models.Model):
     dish = models.ForeignKey(to="Dish", on_delete=models.CASCADE, related_name="user_rates")
     user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="rated_dishes")
-    rating = models.FloatField(null=True)
+    rating = models.IntegerField(null=True)
 
     class Meta:
         unique_together = ["dish", "user"]
