@@ -222,5 +222,31 @@ h1 {
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: left;
 }
+
+
+/* profile update form */
+.profile-update_form {
+    color: white;
+    width: 50%;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #4B0082;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+}
+/*---END--- profile update form ---END---*/
