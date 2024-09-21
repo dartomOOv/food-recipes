@@ -3,14 +3,15 @@
 {% block base %}
   {% include "base/nav/header.html" %}
   <div class="container mt-5">
-    <h1 class="mb-4 text-center text-white"><strong>Our Dishes</strong></h1>
-
+    <h1 class="mb-4 text-center text-white">
+      <strong>Our Dishes</strong>
+    </h1>
     {% for dish in dishes %}
       <a href="{% url 'recipes:recipe-detail' dish.slug %}" class="dish-card">
         <img src="https://via.placeholder.com/150" alt="Dish Image">
         <div class="dish-info">
           <h5>{{ dish.name }}</h5>
-          <small><strong>Author:</strong> John Doe</small>
+          <small><strong>Author:</strong> {{ dish.user_dishes|join_authors }}</small>
           <small><strong>Rating:</strong> {{ dish|average_rating }}</small>
           <small><strong>Time to cook:</strong> {{ dish.cooking_time }} minutes</small>
           <small><strong>Dish type:</strong> {{ dish.dish_type }}</small>
@@ -23,95 +24,6 @@
         </div>
       </a>
     {% endfor %}
-
-    <!-- Second Dish -->
-    <a href="" class="dish-card">
-      <img src="https://via.placeholder.com/150" alt="Dish Image">
-      <div class="dish-info">
-        <h5>Dish Name</h5>
-        <small><strong>Author:</strong> Jane Doe</small>
-        <small><strong>Rating:</strong> 4.2</small>
-        <small><strong>Time to cook:</strong> 40 minutes</small>
-        <small><strong>Dish type:</strong> Chinese</small>
-      </div>
-      <div class="dish-description-box">
-        <p class="dish-description">
-          This is a description of the dish. It can be a short teaser or a brief summary about the dish's flavors,
-          ingredients, and preparation method.
-        </p>
-      </div>
-    </a>
-
-
-    <a href="" class="dish-card">
-      <img src="https://via.placeholder.com/150" alt="Dish Image">
-      <div class="dish-info">
-        <h5>Dish Name</h5>
-        <small><strong>Author:</strong> John Doe</small>
-        <small><strong>Rating:</strong> 4.5</small>
-        <small><strong>Time to cook:</strong> 30 minutes</small>
-        <small><strong>Dish type:</strong> Italian</small>
-      </div>
-      <div class="dish-description-box">
-        <p class="dish-description">
-          This is a description of the dish. It can be a short teaser or a brief summary about the dish's flavors,
-          ingredients, and preparation method.
-        </p>
-      </div>
-    </a>
-
-    <!-- Second Dish -->
-    <a href="" class="dish-card">
-      <img src="https://via.placeholder.com/150" alt="Dish Image">
-      <div class="dish-info">
-        <h5>Dish Name</h5>
-        <small><strong>Author:</strong> Jane Doe</small>
-        <small><strong>Rating:</strong> 4.2</small>
-        <small><strong>Time to cook:</strong> 40 minutes</small>
-        <small><strong>Dish type:</strong> Chinese</small>
-      </div>
-      <div class="dish-description-box">
-        <p class="dish-description">
-          This is a description of the dish. It can be a short teaser or a brief summary about the dish's flavors,
-          ingredients, and preparation method.
-        </p>
-      </div>
-    </a>
-    <a href="" class="dish-card">
-      <img src="https://via.placeholder.com/150" alt="Dish Image">
-      <div class="dish-info">
-        <h5>Dish Name</h5>
-        <small><strong>Author:</strong> John Doe</small>
-        <small><strong>Rating:</strong> 4.5</small>
-        <small><strong>Time to cook:</strong> 30 minutes</small>
-        <small><strong>Dish type:</strong> Italian</small>
-      </div>
-      <div class="dish-description-box">
-        <p class="dish-description">
-          This is a description of the dish. It can be a short teaser or a brief summary about the dish's flavors,
-          ingredients, and preparation method.
-        </p>
-      </div>
-    </a>
-
-    <!-- Second Dish -->
-    <a href="" class="dish-card">
-      <img src="https://via.placeholder.com/150" alt="Dish Image">
-      <div class="dish-info">
-        <h5>Dish Name</h5>
-        <small><strong>Author:</strong> Jane Doe</small>
-        <small><strong>Rating:</strong> 4.2</small>
-        <small><strong>Time to cook:</strong> 40 minutes</small>
-        <small><strong>Dish type:</strong> Chinese</small>
-      </div>
-      <div class="dish-description-box">
-        <p class="dish-description">
-          This is a description of the dish. It can be a short teaser or a brief summary about the dish's flavors,
-          ingredients, and preparation method.
-        </p>
-      </div>
-    </a>
-
 
   </div>
 
