@@ -20,9 +20,9 @@ def dish_is_saved(dish, user):
 
 @register.filter
 def average_rating(dish):
-    avg_rate = DishRating.objects.filter(dish=dish)
-    if avg_rate.exists():
-        return avg_rate.aggregate(avg_rate=Avg("rating"))["avg_rate"]
+    rates = DishRating.objects.filter(dish=dish)
+    if rates.exists():
+        return rates.aggregate(avg_rate=Avg("rating"))["avg_rate"]
     return "N/A"
 
 
