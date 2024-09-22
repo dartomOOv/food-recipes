@@ -40,7 +40,7 @@ def dish_rated(dish, user):
 
 @register.filter
 def average_user_dishes_rating(user):
-    queryset = DishRating.objects.filter(dish__user_dishes__user=user, rating__isnull=False)
+    queryset = DishRating.objects.filter(dish__created_by=user, rating__isnull=False)
     rates = queryset.aggregate(rates_sum=Sum("rating"))["rates_sum"]
     if rates:
         return round((rates / queryset.count()), 1)

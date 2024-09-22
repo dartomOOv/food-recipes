@@ -14,7 +14,7 @@
         <p>First name: {{ author.first_name }}</p>
         <p>Email: {{ author.email }}</p>
       {% endif %}
-      <p>Total Dishes: {{ author|total_dishes }}</p>
+      <p>Total Dishes: {{ author.dishes.count }}</p>
       <p>Average rate of all dishes: {{ author|average_user_dishes_rating }}</p>
       <p>Member Since: {{ author.date_joined|date:"F d, Y" }}</p>
     </div>
