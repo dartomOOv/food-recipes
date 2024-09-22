@@ -328,29 +328,41 @@ button {
   border-radius: 10px;
 }
 
-#ingredients-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 15px;
+.dish-creation {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    font-family: "Arial", sans-serif;
 }
 
-#ingredients-table th,
-#ingredients-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  color: #fff;
+.cell-label {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #fff;
 }
 
-#ingredients-table tr:nth-child(even) {
-  background-color: #6b418d;
+.ingredients-container {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
 }
 
-.ingredient-select,
-.ingredient-amount,
-.ingredient-unit {
-  width: 100%;
-  padding: 5px;
-  margin-right: 5px;
+.ingredients-list {
+    flex: 1;
+    padding-right: 15px;
+    color: #fff;
+
 }
-/*---END--- dish creation form ---END---*/
+
+.list-wrapper {
+    align-content: start;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.2); /* Lighter background for contrast */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+}
