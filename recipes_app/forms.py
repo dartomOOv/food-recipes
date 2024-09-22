@@ -7,7 +7,7 @@ from django.contrib.auth.forms import (
 )
 from django.utils.translation import gettext_lazy as _
 
-from recipes_app.models import DishRating
+from recipes_app.models import DishRating, IngredientAmount
 
 
 class CustomRegisterForm(UserCreationForm):
@@ -113,3 +113,9 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = DishRating
         fields = ["rating"]
+
+
+class IngredientAmountForm(forms.ModelForm):
+    class Meta:
+        model = IngredientAmount
+        fields = ["ingredient", "amount"]
