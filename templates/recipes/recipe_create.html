@@ -1,0 +1,68 @@
+{% extends "base/base.html" %}
+{% block base %}
+  {% load static %}
+
+  {% include "base/nav/header.html" %}
+  <div class="form-container text-white">
+    <h1>Create a New Dish</h1>
+    <form method="post" action="" class="dish-creation">
+      {% csrf_token %}
+
+      <label class="cell-label">Dish Name:</label>
+      {{ form.name }}
+
+      <label class="cell-label">Description:</label>
+      {{ form.description }}
+
+      <label class="cell-label">Dish Type:</label>
+      {{ form.dish_type }}
+
+      <label class="cell-label">Cooking Time (in minutes):</label>
+      {{ form.cooking_time }}
+
+      <div class="ingredients-container">
+        <h3>Ingredients:</h3>
+        <table id="ingredients-table">
+          <thead>
+          <tr>
+            <th>Ingredient</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <select name="ingredients[]" class="ingredient-select">
+                <option value="apple">Apple</option>
+                <option value="banana">Banana</option>
+                <option value="carrot">Carrot</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" name="amounts[]" class="ingredient-amount" placeholder="e.g., 2 pieces/2 liters"/>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger">Remove</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-success">+ Add Row</button>
+        <p class="mt-3">Couldn't find needed ingredient?</p>
+        <a href="" class="btn btn-primary">
+          Add New Ingredient Here!
+        </a>
+      </div>
+
+      <label for="id_how_to_cook">How to Cook:</label>
+      {{ form.how_to_cook }}
+
+      <div class="button-container">
+        <button type="button" class="back-btn" onclick="window.location.href=''">Back to Dishes</button>
+        <button type="submit" class="submit-btn">Create Dish</button>
+      </div>
+    </form>
+  </div>
+  <script src="{% static 'js/ingredients.js' %}"></script>
+{% endblock %}
