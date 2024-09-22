@@ -7,12 +7,14 @@ from recipes_app.views import (
     ProfileView,
     CreatedRecipes,
     ProfileUpdateView,
+    ProfileDeleteView,
 )
 
 urlpatterns = [
     path("", MainPageView.as_view(), name="recipes-list"),
     path("user-<slug:slug>/profile/", ProfileView.as_view(), name="profile"),
     path("user-<slug:slug>/profile/update", ProfileUpdateView.as_view(), name="profile-update"),
+    path("user-<slug:slug>/profile/delete_confirm", ProfileDeleteView.as_view(), name="profile-delete"),
     path("user-<slug:slug>/saved/", SavedRecipes.as_view(), name="saved_recipes"),
     path("user-<slug:slug>/created/", CreatedRecipes.as_view(), name="created_recipes"),
     path("dish-<slug:slug>/", RecipeDetailView.as_view(), name="recipe-detail"),
