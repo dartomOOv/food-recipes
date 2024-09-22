@@ -20,6 +20,7 @@ class Dish(models.Model):
     ingredients = models.ManyToManyField(to="IngredientAmount", related_name="dishes")
     how_to_cook = models.TextField(max_length=4096)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(to=AUTH_USER_MODEL, related_name="dishes", on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from=["name", "created_at__microsecond"])
 
     class Meta:
@@ -99,14 +100,6 @@ class DishRating(models.Model):
                 condition=models.Q(rating__gte=0) & models.Q(rating__lte=5),
                 name="rating_limits")
         ]
-
-
-class CreatedUserDish(models.Model):
-    dish = models.ForeignKey(to="Dish", on_delete=models.CASCADE, related_name="user_dishes")
-    user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="created_dishes")
-
-    class Meta:
-        db_table = "created_user_dish"
 
 
 class SavedUserDish(models.Model):
