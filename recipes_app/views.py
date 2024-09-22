@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
-from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm, IngredientAmountForm
+from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm, DishCreateForm
 from recipes_app.models import Dish, SavedUserDish, DishRating, User, CreatedUserDish
 
 
@@ -78,13 +78,17 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
 class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
     template_name = "recipes/recipe_create.html"
-    fields = "__all__"
+    form_class = DishCreateForm
+    context_object_name = "form"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        form = IngredientAmountForm()
-        context["ingredient_amount"] = form
-        return context
+    def post(self, request, *args, **kwargs):
+        form = DishCreateForm(request.POST)
+
+        if form.is_valid():
+            dish = form.save()
+            CreatedUserDish.objects.create(user=request.user, dish=dish)
+            return redirect(dish.get_absolute_url())
+        return super().post(self, request, *args, **kwargs)
 
 
 class SaveRemoveRecipe(LoginRequiredMixin, View):
