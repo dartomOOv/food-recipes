@@ -53,6 +53,7 @@ class IngredientAmount(models.Model):
 
     class Meta:
         db_table = "ingredient_amount"
+        unique_together = ["ingredient", "amount"]
 
 
 class Ingredient(models.Model):
@@ -63,6 +64,7 @@ class Ingredient(models.Model):
         return f"{self.name} ({self.category})"
 
     class Meta:
+        unique_together = ["name", "category"]
         db_table = "ingredient"
 
 
