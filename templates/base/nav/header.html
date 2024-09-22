@@ -7,7 +7,7 @@
         <a class="btn btn-outline-light p-2" href="{% url 'recipes:recipes-list' %}">Home</a>
       </div>
       <div class="btn-group mr-3">
-        <a class="btn btn-outline-info p-2 text-white" href="">Add dish</a>
+        <a class="btn btn-outline-info p-2 text-white" href="{% url 'recipes:recipe-create' %}">Add dish</a>
         <a class="btn btn-outline-info p-2 text-white" href="{% url 'recipes:saved_recipes' user.slug %}">Saved dishes</a>
         <a class="btn btn-outline-info p-2 text-white" href="#">Search food</a>
       </div>
