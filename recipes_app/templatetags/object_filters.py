@@ -47,6 +47,7 @@ def average_user_dishes_rating(user):
             total += DishRating.objects.filter(dish=query.dish)
         else:
             total = DishRating.objects.filter(dish=query.dish)
-    if total.exists():
-        return total.aggregate(avg_rate=Avg("rating"))["avg_rate"]
+    if total:
+        if total.exists():
+            return total.aggregate(avg_rate=Avg("rating"))["avg_rate"]
     return "N/A"
