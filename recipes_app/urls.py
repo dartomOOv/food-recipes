@@ -9,6 +9,7 @@ from recipes_app.views import (
     ProfileUpdateView,
     ProfileDeleteView,
     RecipeCreateView,
+    IngredientAmountCreateView,
 )
 
 urlpatterns = [
@@ -21,5 +22,6 @@ urlpatterns = [
     path("create/", RecipeCreateView.as_view(), name="recipe-create"),
     path("dish-<slug:slug>/", RecipeDetailView.as_view(), name="recipe-detail"),
     path("dish-<slug:slug>/save/", SaveRemoveRecipe.as_view(), name="recipe-save-remove"),
+    path("ingredient-amount/create/", IngredientAmountCreateView.as_view(), name="ingredient-amount-create"),
 ]
 app_name = "recipes"
