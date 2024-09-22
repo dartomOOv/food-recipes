@@ -1,5 +1,5 @@
 from django import template
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Sum
 
 from recipes_app.models import SavedUserDish, DishRating, CreatedUserDish
 
@@ -40,14 +40,8 @@ def total_dishes(user):
 
 @register.filter
 def average_user_dishes_rating(user):
-    total = None
-    queryset = CreatedUserDish.objects.filter(user=user)
-    for query in queryset.select_related("dish"):
-        if total:
-            total += DishRating.objects.filter(dish=query.dish)
-        else:
-            total = DishRating.objects.filter(dish=query.dish)
-    if total:
-        if total.exists():
-            return total.aggregate(avg_rate=Avg("rating"))["avg_rate"]
+    queryset = DishRating.objects.filter(dish__user_dishes__user=user, rating__isnull=False)
+    rates = queryset.aggregate(rates_sum=Sum("rating"))["rates_sum"]
+    if rates:
+        return round((rates / queryset.count()), 1)
     return "N/A"
