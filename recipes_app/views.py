@@ -114,7 +114,7 @@ class SavedRecipes(LoginRequiredMixin, View):
 class CreatedRecipes(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user = get_user_model().objects.get(slug=kwargs["slug"])
-        queryset = CreatedUserDish.objects.filter(user=user).select_related("dish")
+        queryset = Dish.objects.filter(created_by=user)
         context = {
             "queryset": queryset
         }
