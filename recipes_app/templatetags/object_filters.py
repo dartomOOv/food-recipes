@@ -1,7 +1,7 @@
 from django import template
 from django.db.models import Avg, Count, Sum
 
-from recipes_app.models import SavedUserDish, DishRating, CreatedUserDish
+from recipes_app.models import SavedUserDish, DishRating
 
 register = template.Library()
 
@@ -33,10 +33,10 @@ def dish_rated(dish, user):
     return filtered.exists()
 
 
-@register.filter
-def total_dishes(user):
-    dishes = CreatedUserDish.objects.filter(user=user)
-    return dishes.aggregate(total=Count("dish"))["total"]
+# @register.filter
+# def total_dishes(user):
+#     dishes = CreatedUserDish.objects.filter(user=user)
+#     return dishes.aggregate(total=Count("dish"))["total"]
 
 @register.filter
 def average_user_dishes_rating(user):

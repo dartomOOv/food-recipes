@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
 from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm, DishCreateForm
-from recipes_app.models import Dish, SavedUserDish, DishRating, User, CreatedUserDish
+from recipes_app.models import Dish, SavedUserDish, DishRating, User
 
 
 def index(request: HttpRequest) -> HttpResponse:
