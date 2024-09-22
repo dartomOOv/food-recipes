@@ -21,8 +21,7 @@
         </div>
       <label class="cell-label" for="{{ form.cooking_time.id_for_label }}">Cooking Time (in minutes):</label>
       {{ form.cooking_time }}
-
-      <!-- Ingredients Section -->
+    
       <div class="ingredients-container">
         <div class="ingredients-list">
             <h3>Ingredients:</h3>
@@ -37,7 +36,7 @@
 
         <div class="add-ingredient">
             <p>Couldn't find needed ingredient?</p>
-            <a href="{% url 'recipes:ingredient-amount-create' %}" class="btn btn-primary">Add New Ingredient and amount Here!</a>
+            <a href="{% url 'recipes:ingredient-amount-create' %}?next={{ request.GET.next }}" class="btn btn-primary">Add New Ingredient and Amount Here!</a>
         </div>
       </div>
 
