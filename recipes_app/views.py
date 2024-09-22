@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
 from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm, DishCreateForm
-from recipes_app.models import Dish, SavedUserDish, DishRating, User, IngredientAmount
+from recipes_app.models import Dish, SavedUserDish, DishRating, User, IngredientAmount, Ingredient, Category
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -85,10 +85,17 @@ class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
         form = DishCreateForm(request.POST)
 
         if form.is_valid():
-            dish = form.save()
-            CreatedUserDish.objects.create(user=request.user, dish=dish)
+            dish = form.save(commit=False)
+            dish.user = request.user
+            dish.save()
             return redirect(dish.get_absolute_url())
         return super().post(self, request, *args, **kwargs)
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        return reverse_lazy('recipes:recipe-create')
 
 
 class SaveRemoveRecipe(LoginRequiredMixin, View):
@@ -115,6 +122,36 @@ class IngredientAmountCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "recipes/ingredient_amount_create.html"
     model = IngredientAmount
     fields = "__all__"
+
+    def get_success_url(self):
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+        return reverse_lazy("recipes:recipe-create")
+
+
+class IngredientCreateView(LoginRequiredMixin, generic.CreateView):
+    template_name = "recipes/ingredient_create.html"
+    model = Ingredient
+    fields = "__all__"
+
+    def get_success_url(self):
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+        return reverse_lazy("recipes:ingredient-amount-create")
+
+
+class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
+    template_name = "recipes/category_create.html"
+    model = Category
+    fields = "__all__"
+
+    def get_success_url(self):
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+        return reverse_lazy("recipes:ingredient-create")
 
 
 class CreatedRecipes(LoginRequiredMixin, View):
