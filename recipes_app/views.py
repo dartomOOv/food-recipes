@@ -122,3 +122,12 @@ class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         user = self.request.user
         return reverse_lazy("recipes:profile", kwargs={"slug": user.slug})
+
+class ProfileDeleteView(LoginRequiredMixin, generic.DeleteView):
+    slug_field = "slug"
+    model = get_user_model()
+    template_name = "profile/delete_confirm.html"
+
+    def get_success_url(self):
+        return reverse_lazy("login-page")
+
