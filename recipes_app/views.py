@@ -75,6 +75,12 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
         return redirect(dish.get_absolute_url())
 
 
+class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Dish
+    template_name = "recipes/recipe_create.html"
+    fields = "__all__"
+
+
 class SaveRemoveRecipe(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         dish = get_object_or_404(Dish, slug=kwargs["slug"])
