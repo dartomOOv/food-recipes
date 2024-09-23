@@ -11,7 +11,7 @@
         <img src="https://via.placeholder.com/150" alt="Dish Image">
         <div class="dish-info">
           <h5>{{ dish.name }}</h5>
-          <small><strong>Author:</strong> {{ dish.user_dishes|join_authors }}</small>
+          <small><strong>Author:</strong> {{ dish.created_by.username }}</small>
           <small><strong>Rating:</strong> {{ dish|average_dish_rating }}</small>
           <small><strong>Time to cook:</strong> {{ dish.cooking_time }} minutes</small>
           <small><strong>Dish type:</strong> {{ dish.dish_type }}</small>

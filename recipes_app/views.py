@@ -86,7 +86,7 @@ class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
 
         if form.is_valid():
             dish = form.save(commit=False)
-            dish.user = request.user
+            dish.created_by = request.user
             dish.save()
             return redirect(dish.get_absolute_url())
         return super().post(self, request, *args, **kwargs)

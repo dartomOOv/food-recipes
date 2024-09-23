@@ -9,10 +9,8 @@
     <!-- Dish Info -->
     <div class="fine-box transparent_bg">
       <p>
-        <strong>Author:</strong>
-        {% for author in dish.user_dishes.all %}
-          <a href="{% url 'recipes:profile' author.user.slug %}" style="color: yellow">{{ author.user.username }}</a>
-        {% endfor %}
+        <strong>Author: </strong>
+        <a href="{% url 'recipes:profile' dish.created_by.slug %}" style="color: yellow">{{ dish.created_by.username }}</a>
       </p>
       <p><strong>Dish Type:</strong> {{ dish.dish_type }}</p>
       <p><strong>Dish Rating:</strong> {{ dish|average_dish_rating }}</p>

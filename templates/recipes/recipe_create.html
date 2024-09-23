@@ -26,7 +26,7 @@
         <div class="ingredients-list">
             <h3>Ingredients:</h3>
           {% if form.errors %}
-            <p class="text-danger">Recipe cannot have anything</p>
+            <p class="text-danger">{{ form.errors }}</p>
           {% endif %}
             <div class="list-wrapper">
                 {{ form.ingredients }}

@@ -118,7 +118,7 @@ class RatingForm(forms.ModelForm):
 class DishCreateForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = "__all__"
+        fields = ["name", "description", "dish_type", "cooking_time", "ingredients", "how_to_cook"]
         widgets = {
             'ingredients': forms.CheckboxSelectMultiple,  # To display ingredients as checkboxes
         }
