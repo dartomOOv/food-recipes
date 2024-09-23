@@ -80,6 +80,7 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "recipes/recipe_detail.html"
     model = Dish
     slug_field = "slug"
+    queryset = Dish.objects.prefetch_related("ingredients")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
