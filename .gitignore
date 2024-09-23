@@ -5,3 +5,5 @@ config/__pycache__/
 recipes_app/__pycache__/
 recipes_app/migrations/__pycache__/
 recipes_app/templatetags/__pycache__/
+__pycache__/
+
