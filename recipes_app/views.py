@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
 from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm, DishCreateForm, DishSearchForm
-from recipes_app.models import Dish, SavedUserDish, DishRating, User, IngredientAmount, Ingredient, Category
+from recipes_app.models import Dish, SavedUserDish, DishRating, User, IngredientAmount, Ingredient, Category, DishType
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -184,6 +184,18 @@ class IngredientCreateView(LoginRequiredMixin, generic.CreateView):
         if next_url:
             return next_url
         return reverse_lazy("recipes:ingredient-amount-create")
+
+
+class DishTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    template_name = "recipes/dish_type_create.html"
+    model = DishType
+    fields = "__all__"
+
+    def get_success_url(self):
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+        return reverse_lazy("recipes:recipe-create")
 
 
 class CategoryCreateView(LoginRequiredMixin, generic.CreateView):

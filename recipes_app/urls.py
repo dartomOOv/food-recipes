@@ -13,7 +13,7 @@ from recipes_app.views import (
     IngredientCreateView,
     CategoryCreateView,
     RecipeUpdateView,
-    RecipeDeleteView,
+    RecipeDeleteView, DishTypeCreateView,
 )
 
 urlpatterns = [
@@ -31,5 +31,6 @@ urlpatterns = [
     path("ingredient-amount/create/", IngredientAmountCreateView.as_view(), name="ingredient-amount-create"),
     path("ingredient/create/", IngredientCreateView.as_view(), name="ingredient-create"),
     path("category/create/", CategoryCreateView.as_view(), name="category-create"),
+    path("dish-type/create/", DishTypeCreateView.as_view(), name="dish-type-create"),
 ]
 app_name = "recipes"
