@@ -3,6 +3,11 @@
 {% block base %}
   {% include "base/nav/header.html" %}
   <div class="container mt-5">
+      <form method="get" action="" class="inline-form">
+        {{ search_form }}
+        <input type="submit" value="🔎">
+      </form>
+{% if dishes %}
     <h1 class="mb-4 text-center text-white">
       <strong>Our Dishes</strong>
     </h1>
@@ -25,7 +30,10 @@
         </div>
       </a>
     {% endfor %}
-
+    {% include "base/pagination.html" %}
+      {% else %}
+      <h1 class="mb-4 text-center text-white">No dishes found</h1>
+  {% endif %}
   </div>
 
 {% endblock %}
