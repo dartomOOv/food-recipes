@@ -19,7 +19,7 @@
       {{ form.dish_type }}
       <div class="add-ingredient">
             <p>Couldn't find needed dish type?</p>
-            <a href="" class="btn btn-primary">Add new dish type here!</a>
+            <a href="{% url 'recipes:dish-type-create' %}?next={{ request.GET.next }}" class="btn btn-primary">Add new dish type here!</a>
         </div>
       <label class="cell-label" for="{{ form.cooking_time.id_for_label }}">Cooking Time (in minutes):</label>
       {{ form.cooking_time }}
