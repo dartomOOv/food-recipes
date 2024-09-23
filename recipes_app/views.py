@@ -157,9 +157,9 @@ class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
 class CreatedRecipes(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user = get_user_model().objects.get(slug=kwargs["slug"])
-        queryset = Dish.objects.filter(created_by=user)
+        dishes = Dish.objects.filter(created_by=user)
         context = {
-            "queryset": queryset
+            "dishes": dishes
         }
         return render(request, "profile/created_recipes.html", context=context)
 
