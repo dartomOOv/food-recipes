@@ -1,13 +1,14 @@
 from django.contrib.auth import get_user_model, get_user
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 
-from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm, DishCreateForm
+from recipes_app.forms import UserLoginForm, RatingForm, CustomRegisterForm, DishCreateForm, DishSearchForm
 from recipes_app.models import Dish, SavedUserDish, DishRating, User, IngredientAmount, Ingredient, Category
 
 
@@ -40,14 +41,26 @@ class CustomLoginView(LoginView):
         return reverse_lazy("recipes:recipes-list")
 
 
-class MainPageView(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        dishes = Dish.objects.all()
-        context = {
-            "dishes": dishes
-        }
+class MainPageView(LoginRequiredMixin, generic.ListView):
+    model = Dish
+    template_name = "recipes/recipes_list.html"
+    context_object_name = "dishes"
+    paginate_by = 6
 
-        return render(request, "recipes/recipes_list.html", context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(MainPageView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = DishSearchForm(
+            initial={"name": name}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Dish.objects.all()
+        form = DishSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
+        return  queryset
 
 
 class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
@@ -126,13 +139,27 @@ class SaveRemoveRecipe(LoginRequiredMixin, View):
         return redirect(dish.get_absolute_url())
 
 
-class SavedRecipes(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        queryset = SavedUserDish.objects.filter(user=request.user).select_related("dish")
-        context = {
-            "queryset": queryset
-        }
-        return render(request, "profile/saved_recipes.html", context=context)
+class SavedRecipes(LoginRequiredMixin, generic.ListView):
+    model = SavedUserDish
+    template_name = "profile/saved_recipes.html"
+    paginate_by = 6
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(SavedRecipes, self).get_context_data(**kwargs)
+        queryset = SavedUserDish.objects.filter(user=self.request.user)
+        paginator = Paginator(queryset, self.paginate_by)
+
+        page = self.request.GET.get('page')
+
+        try:
+            queryset = paginator.page(page)
+        except PageNotAnInteger:
+            queryset = paginator.page(1)
+        except EmptyPage:
+            queryset = paginator.page(paginator.num_pages)
+
+        context["queryset"] = queryset
+        return context
 
 
 class IngredientAmountCreateView(LoginRequiredMixin, generic.CreateView):
@@ -171,14 +198,28 @@ class CategoryCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse_lazy("recipes:ingredient-create")
 
 
-class CreatedRecipes(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        user = get_user_model().objects.get(slug=kwargs["slug"])
-        dishes = Dish.objects.filter(created_by=user)
-        context = {
-            "dishes": dishes
-        }
-        return render(request, "profile/created_recipes.html", context=context)
+class CreatedRecipes(LoginRequiredMixin, generic.ListView):
+    model = Dish
+    template_name = "profile/created_recipes.html"
+    paginate_by = 6
+    context_object_name = "dishes"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CreatedRecipes, self).get_context_data(**kwargs)
+        dishes = Dish.objects.filter(created_by=self.request.user).select_related("created_by")
+        paginator = Paginator(dishes, self.paginate_by)
+
+        page = self.request.GET.get('page')
+
+        try:
+            dishes = paginator.page(page)
+        except PageNotAnInteger:
+            dishes = paginator.page(1)
+        except EmptyPage:
+            dishes = paginator.page(paginator.num_pages)
+
+        context["dishes"] = dishes
+        return context
 
 
 class ProfileView(LoginRequiredMixin, generic.DetailView):
