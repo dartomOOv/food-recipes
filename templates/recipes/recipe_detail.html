@@ -52,8 +52,8 @@
         <p>You already rated this dish</p>
       {% endif %}
       {% if dish.created_by == user %}
-        <a href="{% url 'recipes:created_recipes' user.slug %}" class="btn btn-primary mr-3 ml-3">Update Recipe</a>
-        <a href="{% url 'recipes:profile-update' user.slug %}" class="btn btn-danger mr-3">Delete Recipe</a>
+        <a href="{% url 'recipes:recipe-update' dish.slug %}" class="btn btn-primary mr-3 ml-3">Update Recipe</a>
+        <a href="{% url 'recipes:recipe-delete' dish.slug %}" class="btn btn-danger mr-3">Delete Recipe</a>
       {% endif %}
     </div>
   </div>
