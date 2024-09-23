@@ -5,44 +5,37 @@
       <div class="row align-items-center justify-content-center align-center">
         <div class="col-md-9 col-lg-6 my-5">
           <div class="text-center error-page round-corners">
-
             <div class="panel-heading align-center mb-5">
               <h3 class="panel-title">Registration</h3>
             </div>
-
             <div class="panel-body">
+              
               <form role="form" action="" method="post">
                 {% csrf_token %}
-                
+
                 <div class="row">
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                       {{ form.first_name }}
                       {% include "accounts/field_errors.html" with field=form.first_name %}
-{#                      <input type="text" name="first_name" id="first_name" class="form-control input-sm"#}
-{#                             placeholder="First Name">#}
                     </div>
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                       {{ form.last_name }}
                       {% include "accounts/field_errors.html" with field=form.last_name %}
-{#                      <input type="text" name="last_name" id="last_name" class="form-control input-sm"#}
-{#                             placeholder="Last Name">#}
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="form-group">
                   {{ form.username }}
                   {% include "accounts/field_errors.html" with field=form.username %}
-{#                  <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username">#}
                 </div>
 
                 <div class="form-group">
                   {{ form.email }}
                   {% include "accounts/field_errors.html" with field=form.email %}
-{#                  <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">#}
                 </div>
 
                 <div class="row">
@@ -50,34 +43,29 @@
                     <div class="form-group">
                       {{ form.password1 }}
                       {% include "accounts/field_errors.html" with field=form.password1 %}
-{#                      <input type="password" name="password" id="password" class="form-control input-sm"#}
-{#                             placeholder="Password">#}
                     </div>
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                       {{ form.password2 }}
-{#                      <input type="password" name="password_confirmation" id="password_confirmation"#}
-{#                             class="form-control input-sm" placeholder="Confirm Password">#}
                     </div>
                   </div>
                 </div>
+                
                 {% include "accounts/field_errors.html" with field=form.password2 %}
                 <input type="submit" value="Register" class="btn btn-info btn-block">
               </form>
 
               <div class="col-xs-6">
-                    <div class="text-right">
-                      <br>
-                      <p>Have an account? <a href="{% url 'login-page' %}">Login here!</a></p>
-                    </div>
-                  </div>
-
+                <div class="text-right">
+                  <br>
+                  <p>Have an account? <a href="{% url 'login-page' %}">Login here!</a></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 {% endblock %}

@@ -3,7 +3,6 @@
 {% block base %}
   {% include 'base/nav/header.html' %}
   <div class="container">
-    <!-- Profile Header -->
     <div class="profile-header">
       <h1 class="text-center">{{ author.username }}'s
         {% if author == user %} (Your) {% endif %}
@@ -20,17 +19,23 @@
     </div>
     {% if user == author %}
       
-    <!-- Buttons for additional actions -->
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <a href="{% url 'recipes:created_recipes' user.slug %}" class="btn btn-warning mr-3">My dishes</a>
-        <a href="{% url 'recipes:profile-update' user.slug %}" class="btn btn-success mr-3">Edit Profile</a>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <a href="{% url 'recipes:created_recipes' user.slug %}" class="btn btn-warning mr-3">
+            My dishes
+          </a>
+          <a href="{% url 'recipes:profile-update' user.slug %}" class="btn btn-success mr-3">
+            Edit Profile
+          </a>
+        </div>
+        <a href="{% url 'recipes:profile-delete' user.slug %}" class="btn btn-danger mr-3 content-left">
+          Delete Account
+        </a>
       </div>
-      <a href="{% url 'recipes:profile-delete' user.slug %}" class="btn btn-danger mr-3 content-left">Delete Account</a>
-    </div>
     {% else %}
-      <a href="{% url 'recipes:created_recipes' author.slug %}" class="btn btn-light mr-3">{{ author.username }}'s Dishes</a>
-  {% endif %}
+      <a href="{% url 'recipes:created_recipes' author.slug %}" class="btn btn-light mr-3">
+        {{ author.username }}'s Dishes
+      </a>
+    {% endif %}
   </div>
 {% endblock %}
-

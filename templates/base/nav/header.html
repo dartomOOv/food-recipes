@@ -8,14 +8,18 @@
       </div>
       <div class="btn-group mr-3">
         <a class="btn btn-outline-info p-2 text-white" href="{% url 'recipes:recipe-create' %}">Add dish</a>
-        <a class="btn btn-outline-info p-2 text-white" href="{% url 'recipes:saved_recipes' user.slug %}">Saved dishes</a>
+        <a class="btn btn-outline-info p-2 text-white" href="{% url 'recipes:saved_recipes' user.slug %}">
+          Saved dishes
+        </a>
       </div>
       <div class="btn-group mr-2">
         <a class="btn btn-outline-warning p-2 text-white" href="{% url 'recipes:profile' user.slug %}">Profile</a>
+        
         <form action="{% url 'logout' %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn btn-outline-danger p-2">Logout</button>
         </form>
+        
       </div>
     </div>
   </div>

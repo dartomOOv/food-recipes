@@ -3,37 +3,53 @@
 {% block base %}
   {% include "base/nav/header.html" %}
   <div class="container mt-5">
-      <form method="get" action="" class="inline-form">
-        {{ search_form }}
-        <input type="submit" value="🔎">
-      </form>
-{% if dishes %}
-    <h1 class="mb-4 text-center text-white">
-      <strong>Our Dishes</strong>
-    </h1>
-    {% for dish in dishes %}
-      <a href="{% url 'recipes:recipe-detail' dish.slug %}" class="dish-card">
-        <img src="https://via.placeholder.com/150" alt="Dish Image">
-        <div class="dish-info">
-          <h5>{{ dish.name }}</h5>
-          <small><strong>Author:</strong> {{ dish.created_by.username }} {% if dish.created_by == user %}(You){% endif %}</small>
-          <small><strong>Rating:</strong> {{ dish|average_dish_rating }}</small>
-          <small><strong>Time to cook:</strong> {{ dish.cooking_time }} minutes</small>
-          <small><strong>Dish type:</strong> {{ dish.dish_type }}</small>
-          <small><strong>Added:</strong> {{ dish.created_at.day }}/{{ dish.created_at.month }}/{{ dish.created_at.year }}
-          </small>
-        </div>
-        <div class="dish-description-box transparent_bg">
-          <p class="dish-description">
-            {{ dish.description }}
-          </p>
-        </div>
-      </a>
-    {% endfor %}
-    {% include "base/pagination.html" %}
-      {% else %}
+  
+    <form method="get" action="" class="inline-form">
+      {{ search_form }}
+      <input type="submit" value="🔎">
+    </form>
+  
+    {% if dishes %}
+      <h1 class="mb-4 text-center text-white">
+        <strong>Our Dishes</strong>
+      </h1>
+      {% for dish in dishes %}
+        <a href="{% url 'recipes:recipe-detail' dish.slug %}" class="dish-card">
+          <img src="https://via.placeholder.com/150" alt="Dish Image">
+          <div class="dish-info">
+            <h5>{{ dish.name }}</h5>
+            <small>
+              <strong>Author: </strong>
+              {{ dish.created_by.username }} {% if dish.created_by == user %}
+              (You){% endif %}
+            </small>
+            <small>
+              <strong>Rating: </strong>
+              {{ dish|average_dish_rating }}
+            </small>
+            <small>
+              <strong>Time to cook: </strong>
+              {{ dish.cooking_time }} minutes
+            </small>
+            <small>
+              <strong>Dish type: </strong>
+              {{ dish.dish_type }}
+            </small>
+            <small>
+              <strong>Added: </strong>
+              {{ dish.created_at.day }}/{{ dish.created_at.month }}/{{ dish.created_at.year }}
+            </small>
+          </div>
+          <div class="dish-description-box transparent_bg">
+            <p class="dish-description">
+              {{ dish.description }}
+            </p>
+          </div>
+        </a>
+      {% endfor %}
+      {% include "base/pagination.html" %}
+    {% else %}
       <h1 class="mb-4 text-center text-white">No dishes found</h1>
-  {% endif %}
+    {% endif %}
   </div>
-
 {% endblock %}

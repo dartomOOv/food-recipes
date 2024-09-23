@@ -1,17 +1,17 @@
 {% extends "base/base.html" %}
 {% block base %}
   {% include "base/nav/header.html" %}
-<div class="container">
-        <h2>Are you sure you want to delete {{ dish.name }}?</h2>
-        <div class="fine-box">
-            <!-- Cancel Button -->
-            <a href="{% url 'recipes:recipe-detail' dish.slug %}" class="btn btn-warning" style="display: inline-block">No, Go Back</a>
+  <div class="container">
+    <h2>Are you sure you want to delete {{ dish.name }}?</h2>
+    <div class="fine-box">
+      <a href="{% url 'recipes:recipe-detail' dish.slug %}" class="btn btn-warning" style="display: inline-block">No, Go
+        Back</a>
 
-            <!-- Confirm Button -->
-            <form action="" method="post" style="display: inline-block">
-              {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Yes, Delete recipe {{ dish.name }}</button>
-            </form>
-        </div>
+      <form action="" method="post" style="display: inline-block">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete recipe {{ dish.name }}</button>
+      </form>
+      
     </div>
+  </div>
 {% endblock %}

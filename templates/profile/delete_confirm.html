@@ -1,19 +1,18 @@
 {% extends "base/base.html" %}
 {% block base %}
   {% include "base/nav/header.html" %}
-<div class="container">
-        <h2>Are you sure you want to delete your account?</h2>
-        <p class="text-center">Once your account is deleted, all your data will be lost.</p>
-
-        <div class="fine-box">
-            <!-- Cancel Button -->
-            <a href="{% url 'recipes:profile' user.slug %}" class="btn btn-warning" style="display: inline-block">No, Go Back</a>
-
-            <!-- Confirm Button -->
-            <form action="" method="post" style="display: inline-block">
-              {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Yes, Delete My Account</button>
-            </form>
-        </div>
+  <div class="container">
+    <h2>Are you sure you want to delete your account?</h2>
+    <p class="text-center">Once your account is deleted, all your data will be lost.</p>
+    <div class="fine-box">
+      <a href="{% url 'recipes:profile' user.slug %}" class="btn btn-warning" style="display: inline-block">No, Go
+        Back</a>
+      
+      <form action="" method="post" style="display: inline-block">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete My Account</button>
+      </form>
+      
     </div>
+  </div>
 {% endblock %}

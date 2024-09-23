@@ -6,6 +6,7 @@
     <h1>
       {{ object|yesno:"Update,Create a new" }} Dish
     </h1>
+  
     <form method="post" action="" class="dish-creation">
       {% csrf_token %}
 
@@ -17,28 +18,33 @@
 
       <label class="cell-label" for="{{ form.dish_type.id_for_label }}">Dish Type:</label>
       {{ form.dish_type }}
+    
       <div class="add-ingredient">
-            <p>Couldn't find needed dish type?</p>
-            <a href="{% url 'recipes:dish-type-create' %}?next={{ request.GET.next }}" class="btn btn-primary">Add new dish type here!</a>
-        </div>
+        <p>Couldn't find needed dish type?</p>
+        <a href="{% url 'recipes:dish-type-create' %}?next={{ request.GET.next }}" class="btn btn-primary">
+          Add new dish type here!
+        </a>
+      </div>
+    
       <label class="cell-label" for="{{ form.cooking_time.id_for_label }}">Cooking Time (in minutes):</label>
       {{ form.cooking_time }}
-    
+
       <div class="ingredients-container">
         <div class="ingredients-list">
-            <h3>Ingredients:</h3>
+          <h3>Ingredients:</h3>
           {% if form.errors %}
             <p class="text-danger">{{ form.errors }}</p>
           {% endif %}
-            <div class="list-wrapper">
-                {{ form.ingredients }}
-            </div>
-
+          <div class="list-wrapper">
+            {{ form.ingredients }}
+          </div>
         </div>
 
         <div class="add-ingredient">
-            <p>Couldn't find needed ingredient?</p>
-            <a href="{% url 'recipes:ingredient-amount-create' %}?next={{ request.GET.next }}" class="btn btn-primary">Add New Ingredient and Amount Here!</a>
+          <p>Couldn't find needed ingredient?</p>
+          <a href="{% url 'recipes:ingredient-amount-create' %}?next={{ request.GET.next }}" class="btn btn-primary">Add
+            New Ingredient and Amount Here!
+          </a>
         </div>
       </div>
 
@@ -50,5 +56,6 @@
         <button type="submit" class="submit-btn">{{ object|yesno:"Update,Create" }} Dish</button>
       </div>
     </form>
-</div>
+  
+  </div>
 {% endblock %}
