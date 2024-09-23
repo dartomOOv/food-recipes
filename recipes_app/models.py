@@ -54,6 +54,7 @@ class IngredientAmount(models.Model):
     class Meta:
         db_table = "ingredient_amount"
         unique_together = ["ingredient", "amount"]
+        ordering = ["ingredient", "amount"]
 
 
 class Ingredient(models.Model):
@@ -66,6 +67,7 @@ class Ingredient(models.Model):
     class Meta:
         unique_together = ["name", "category"]
         db_table = "ingredient"
+        ordering = ["name", "category"]
 
 
 class Category(models.Model):
@@ -77,6 +79,7 @@ class Category(models.Model):
     class Meta:
         db_table = "category"
         verbose_name_plural = "categories"
+        ordering = ["name"]
 
 
 class DishType(models.Model):
@@ -86,6 +89,7 @@ class DishType(models.Model):
         return self.name
 
     class Meta:
+        ordering = ["name"]
         db_table = "dish_type"
 
 
