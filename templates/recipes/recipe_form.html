@@ -3,7 +3,9 @@
   {% load static %}
   {% include "base/nav/header.html" %}
   <div class="form-container text-white">
-    <h1>Create a New Dish</h1>
+    <h1>
+      {{ object|yesno:"Update,Create a new" }} Dish
+    </h1>
     <form method="post" action="" class="dish-creation">
       {% csrf_token %}
 
@@ -45,7 +47,7 @@
 
       <div class="button-container">
         <button type="button" class="back-btn" onclick="window.location.href=''">Back to Dishes</button>
-        <button type="submit" class="submit-btn">Create Dish</button>
+        <button type="submit" class="submit-btn">{{ object|yesno:"Update,Create" }} Dish</button>
       </div>
     </form>
 </div>
