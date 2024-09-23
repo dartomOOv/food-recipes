@@ -28,6 +28,9 @@
     
       <label class="cell-label" for="{{ form.cooking_time.id_for_label }}">Cooking Time (in minutes):</label>
       {{ form.cooking_time }}
+      <script>
+        document.getElementById('{{ form.cooking_time.id_for_label }}').setAttribute("min", 0);
+      </script>
 
       <div class="ingredients-container">
         <div class="ingredients-list">
