@@ -11,7 +11,7 @@
         <img src="https://via.placeholder.com/150" alt="Dish Image">
         <div class="dish-info">
           <h5>{{ query.dish.name }}</h5>
-          <small><strong>Author:</strong> {{ query.dish.created_by }} {% if dish.created_by == user %}(You){% endif %}</small>
+          <small><strong>Author:</strong> {{ query.dish.created_by.username }} {% if dish.created_by == user %}(You){% endif %}</small>
           <small><strong>Rating:</strong> {{ query.dish|average_dish_rating }}</small>
           <small><strong>Time to cook:</strong> {{ query.dish.cooking_time }} minutes</small>
           <small><strong>Dish type:</strong> {{ query.dish.dish_type }}</small>
@@ -28,6 +28,6 @@
       <strong>No dish saved...</strong>
     </h1>
     {% endfor %}
-
+{% include "base/pagination.html" %}
   </div>
 {% endblock %}
