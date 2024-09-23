@@ -25,7 +25,7 @@ from recipes_app.views import (
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", index, name="welcome-page"),
     path("recipes/", include("recipes_app.urls", namespace="recipes")),
     path("accounts/login/", CustomLoginView.as_view(), name="login-page"),

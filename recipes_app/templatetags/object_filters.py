@@ -26,11 +26,6 @@ def dish_rated(dish, user):
     return filtered.exists()
 
 
-# @register.filter
-# def total_dishes(user):
-#     dishes = CreatedUserDish.objects.filter(user=user)
-#     return dishes.aggregate(total=Count("dish"))["total"]
-
 @register.filter
 def average_user_dishes_rating(user):
     queryset = DishRating.objects.filter(dish__created_by=user, rating__isnull=False)

@@ -6,6 +6,7 @@ from recipes_app.models import Dish, Ingredient, Category, DishType, IngredientA
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "get_ingredients"]
+
     def get_ingredients(self, obj):
         products_list = [
             f"{ingredient.ingredient.name}: {ingredient.amount}"
@@ -19,4 +20,3 @@ admin.site.register(Ingredient)
 admin.site.register(Category)
 admin.site.register(DishType)
 admin.site.register(IngredientAmount)
-

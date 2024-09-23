@@ -3,11 +3,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UsernameField,
-    UserCreationForm
+    UserCreationForm,
 )
 from django.utils.translation import gettext_lazy as _
 
-from recipes_app.models import DishRating, IngredientAmount, Ingredient, Dish
+from recipes_app.models import DishRating, Dish
 
 
 class CustomRegisterForm(UserCreationForm):
@@ -18,7 +18,7 @@ class CustomRegisterForm(UserCreationForm):
                 "class": "form-control input-sm",
                 "placeholder": "Your username",
             }
-        )
+        ),
     )
     first_name = forms.CharField(
         required=True,
@@ -27,7 +27,7 @@ class CustomRegisterForm(UserCreationForm):
                 "class": "form-control input-sm",
                 "placeholder": "Your first name",
             }
-        )
+        ),
     )
     last_name = forms.CharField(
         required=True,
@@ -36,7 +36,7 @@ class CustomRegisterForm(UserCreationForm):
                 "class": "form-control input-sm",
                 "placeholder": "Your last name",
             }
-        )
+        ),
     )
 
     email = forms.EmailField(
@@ -46,7 +46,7 @@ class CustomRegisterForm(UserCreationForm):
                 "class": "form-control input-sm",
                 "placeholder": "Your email",
             }
-        )
+        ),
     )
     password1 = forms.CharField(
         required=True,
@@ -55,7 +55,7 @@ class CustomRegisterForm(UserCreationForm):
                 "class": "form-control input-sm",
                 "placeholder": "Password",
             }
-        )
+        ),
     )
     password2 = forms.CharField(
         required=True,
@@ -64,8 +64,9 @@ class CustomRegisterForm(UserCreationForm):
                 "class": "form-control input-sm",
                 "placeholder": "Confirm password",
             }
-        )
+        ),
     )
+
     class Meta:
         model = get_user_model()
         fields = [
@@ -74,7 +75,7 @@ class CustomRegisterForm(UserCreationForm):
             "last_name",
             "email",
             "password1",
-            "password2"
+            "password2",
         ]
 
 
@@ -105,11 +106,10 @@ class RatingForm(forms.ModelForm):
     rating = forms.ChoiceField(
         choices=[(0, "0"), (1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")],
         widget=forms.Select(
-            attrs={
-                "class": "rating-section"
-            }
-        )
+            attrs={"class": "rating-section"}
+        ),
     )
+
     class Meta:
         model = DishRating
         fields = ["rating"]
@@ -118,10 +118,15 @@ class RatingForm(forms.ModelForm):
 class DishCreateForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = ["name", "description", "dish_type", "cooking_time", "ingredients", "how_to_cook"]
-        widgets = {
-            'ingredients': forms.CheckboxSelectMultiple,  # To display ingredients as checkboxes
-        }
+        fields = [
+            "name",
+            "description",
+            "dish_type",
+            "cooking_time",
+            "ingredients",
+            "how_to_cook",
+        ]
+        widgets = {"ingredients": forms.CheckboxSelectMultiple}
 
 
 class DishSearchForm(forms.Form):
@@ -131,8 +136,8 @@ class DishSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(
             attrs={
-            "placeholder": "Search by name",
-            'class': 'form-control',
+                "placeholder": "Search by name",
+                "class": "form-control",
             }
-        )
+        ),
     )
