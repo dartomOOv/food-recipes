@@ -77,7 +77,7 @@ class RecipeDetailView(LoginRequiredMixin, generic.DetailView):
 
 class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
-    template_name = "recipes/recipe_create.html"
+    template_name = "recipes/recipe_form.html"
     form_class = DishCreateForm
     context_object_name = "form"
 
@@ -96,6 +96,23 @@ class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
         if next_url:
             return next_url
         return reverse_lazy('recipes:recipe-create')
+
+
+class RecipeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Dish
+    template_name = "recipes/recipe_form.html"
+    slug_field = "slug"
+    form_class = DishCreateForm
+    context_object_name = "form"
+
+
+class RecipeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Dish
+    template_name = "recipes/recipe_delete.html"
+
+    def get_success_url(self):
+        user = self.request.user
+        return reverse_lazy("recipes:created_recipes", kwargs={'slug': user.slug})
 
 
 class SaveRemoveRecipe(LoginRequiredMixin, View):
