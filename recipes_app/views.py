@@ -36,10 +36,7 @@ class CustomRegisterView(generic.FormView):
 
     def form_valid(self, form):
         with transaction.atomic():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-
+            form.save()
         return super().form_valid(form)
 
     def get_success_url(self):
