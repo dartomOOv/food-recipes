@@ -61,7 +61,9 @@ class IngredientAmount(models.Model):
 
     class Meta:
         db_table = "ingredient_amount"
-        unique_together = ["ingredient", "amount"]
+        constraints = [
+            models.UniqueConstraint(fields=["ingredient", "amount"], name="unique-ingredient-amount")
+        ]
         ordering = ["ingredient", "amount"]
 
 
@@ -75,7 +77,9 @@ class Ingredient(models.Model):
         return f"{self.name} ({self.category})"
 
     class Meta:
-        unique_together = ["name", "category"]
+        constraints = [
+            models.UniqueConstraint(fields=["name", "category"], name="unique-name-category")
+        ]
         db_table = "ingredient"
         ordering = ["name", "category"]
 
@@ -113,13 +117,13 @@ class DishRating(models.Model):
     rating = models.IntegerField(null=True)
 
     class Meta:
-        unique_together = ["dish", "user"]
         db_table = "dish_rating"
         constraints = [
             models.CheckConstraint(
                 condition=models.Q(rating__gte=0) & models.Q(rating__lte=5),
                 name="rating_limits",
-            )
+            ),
+            models.UniqueConstraint(fields=["dish", "user"], name="unique-dish-user")
         ]
 
 
