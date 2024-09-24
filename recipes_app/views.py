@@ -115,6 +115,8 @@ class RecipeCreateView(LoginRequiredMixin, generic.CreateView):
             dish = form.save(commit=False)
             dish.created_by = request.user
             dish.save()
+            for ingredient in form.cleaned_data["ingredients"]:
+                dish.ingredients.add(ingredient)
             return redirect(dish.get_absolute_url())
         return super().post(self, request, *args, **kwargs)
 
