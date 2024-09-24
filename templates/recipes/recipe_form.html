@@ -6,16 +6,10 @@
     <h1>
       {{ object|yesno:"Update,Create a new" }} Dish
     </h1>
-  
+
     <form method="post" action="" class="dish-creation">
       {% csrf_token %}
-
-      <label class="cell-label" for="{{ form.name.id_for_label }}">Dish Name:</label>
-      {{ form.name }}
-
-      <label class="cell-label" for="{{ form.description.id_for_label }}">Description:</label>
-      {{ form.description }}
-
+      
       <label class="cell-label" for="{{ form.dish_type.id_for_label }}">Dish Type:</label>
       {{ form.dish_type }}
     
@@ -25,12 +19,6 @@
           Add new dish type here!
         </a>
       </div>
-    
-      <label class="cell-label" for="{{ form.cooking_time.id_for_label }}">Cooking Time (in minutes):</label>
-      {{ form.cooking_time }}
-      <script>
-        document.getElementById('{{ form.cooking_time.id_for_label }}').setAttribute("min", 0);
-      </script>
 
       <div class="ingredients-container">
         <div class="ingredients-list">
@@ -51,6 +39,18 @@
         </div>
       </div>
 
+      <label class="cell-label" for="{{ form.name.id_for_label }}">Dish Name:</label>
+      {{ form.name }}
+
+      <label class="cell-label" for="{{ form.description.id_for_label }}">Description:</label>
+      {{ form.description }}
+
+      <label class="cell-label" for="{{ form.cooking_time.id_for_label }}">Cooking Time (in minutes):</label>
+      {{ form.cooking_time }}
+      <script>
+        document.getElementById('{{ form.cooking_time.id_for_label }}').setAttribute("min", 0);
+      </script>
+
       <label class="cell-label" for="{{ form.how_to_cook.id_for_label }}">How to Cook:</label>
       {{ form.how_to_cook }}
 
@@ -59,6 +59,6 @@
         <button type="submit" class="submit-btn">{{ object|yesno:"Update,Create" }} Dish</button>
       </div>
     </form>
-  
+
   </div>
 {% endblock %}
