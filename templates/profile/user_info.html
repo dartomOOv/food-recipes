@@ -9,8 +9,8 @@
         Profile</h1>
       <p>Username: {{ author.username }}</p>
       {% if author == user %}
-        <p>Last name: {{ author.last_name }}</p>
         <p>First name: {{ author.first_name }}</p>
+        <p>Last name: {{ author.last_name }}</p>
         <p>Email: {{ author.email }}</p>
       {% endif %}
       <p>Total Dishes: {{ author.dishes.count }}</p>
