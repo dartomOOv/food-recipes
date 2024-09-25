@@ -30,9 +30,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
 ALLOWED_HOSTS = [
+    "food-recipes-xxy7.onrender.com",
     "localhost",
     "127.0.0.1"
-    "food-recipes-xxy7.onrender.com",
 ]
 
 
