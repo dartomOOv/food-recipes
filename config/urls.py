@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.urls import path, include
@@ -31,4 +32,4 @@ urlpatterns = [
     path("accounts/login/", CustomLoginView.as_view(), name="login-page"),
     path("accounts/logout/", LogoutView.as_view(), name="logout"),
     path("accounts/registration/", CustomRegisterView.as_view(), name="registration-page"),
-]
+] + debug_toolbar_urls()
