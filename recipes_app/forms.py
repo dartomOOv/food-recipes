@@ -86,6 +86,7 @@ class UserLoginForm(AuthenticationForm):
                 "autofocus": True,
                 "class": "form-control input-sm",
                 "placeholder": "username",
+                "value": "test_username"
             }
         )
     )
@@ -97,6 +98,7 @@ class UserLoginForm(AuthenticationForm):
                 "autocomplete": "current-password",
                 "class": "form-control input-sm",
                 "placeholder": "password",
+                "value": "s0me_paSSw0rd"
             }
         ),
     )
