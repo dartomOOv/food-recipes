@@ -24,6 +24,14 @@ python manage.py runserver
 * Registration and login 
 * Rating system on recipe page
 * Save & remove buttons
+* Tests already written
+
+## 'env.sample' Explanation
+
+* PGHOST, PGDATABASE, PGUSER, PGPASSWORD - for linking to the PostgreSQL database
+* SECRET_KEY - for securing signed data
+* DEBUG - to run the server with or without debug on (True/False)
+### To use it in project, create '.env' file and put all of these variables in it with your own values
 
 ## Demo
 
