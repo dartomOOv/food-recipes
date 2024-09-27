@@ -31,5 +31,7 @@ urlpatterns = [
     path("recipes/", include("recipes_app.urls", namespace="recipes")),
     path("accounts/login/", CustomLoginView.as_view(), name="login-page"),
     path("accounts/logout/", LogoutView.as_view(), name="logout"),
-    path("accounts/registration/", CustomRegisterView.as_view(), name="registration-page"),
+    path(
+        "accounts/registration/", CustomRegisterView.as_view(), name="registration-page"
+    ),
 ] + debug_toolbar_urls()
