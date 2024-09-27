@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+{% block base %}
+  {% load static %}
+  {% include "base/nav/header.html" %}
+  <div class="form-container text-white">
+    <h1>
+      {{ object|yesno:"Update,Create a new" }} Dish
+    </h1>
+
+    <form method="post" action="" class="dish-creation">
+      {% csrf_token %}
+      
+      <label class="cell-label" for="{{ form.dish_type.id_for_label }}">Dish Type:</label>
+      {{ form.dish_type }}
+    
+      <div class="add-ingredient">
+        <p>Couldn't find needed dish type?</p>
+        <a href="{% url 'recipes:dish-type-create' %}?next={{ request.GET.next }}" class="btn btn-primary">
+          Add new dish type here!
+        </a>
+      </div>
+
+      <div class="ingredients-container">
+        <div class="ingredients-list">
+          <h3>Ingredients:</h3>
+          {% if form.errors %}
+            <p class="text-danger">{{ form.errors }}</p>
+          {% endif %}
+          <div class="list-wrapper">
+            {{ form.ingredients }}
+          </div>
+        </div>
+
+        <div class="add-ingredient">
+          <p>Couldn't find needed ingredient?</p>
+          <a href="{% url 'recipes:ingredient-amount-create' %}?next={{ request.GET.next }}" class="btn btn-primary">Add
+            New Ingredient and Amount Here!
+          </a>
+        </div>
+      </div>
+
+      <label class="cell-label" for="{{ form.name.id_for_label }}">Dish Name:</label>
+      {{ form.name }}
+
+      <label class="cell-label" for="{{ form.description.id_for_label }}">Description:</label>
+      {{ form.description }}
+
+      <label class="cell-label" for="{{ form.cooking_time.id_for_label }}">Cooking Time (in minutes):</label>
+      {{ form.cooking_time }}
+      <script>
+        document.getElementById('{{ form.cooking_time.id_for_label }}').setAttribute("min", 0);
+      </script>
+
+      <label class="cell-label" for="{{ form.how_to_cook.id_for_label }}">How to Cook:</label>
+      {{ form.how_to_cook }}
+
+      <div class="button-container">
+        <button type="button" class="back-btn" onclick="window.location.href=''">Back to Dishes</button>
+        <button type="submit" class="submit-btn">{{ object|yesno:"Update,Create" }} Dish</button>
+      </div>
+    </form>
+
+  </div>
+{% endblock %}

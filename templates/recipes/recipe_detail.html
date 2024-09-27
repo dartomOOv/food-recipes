@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+{% load object_filters %}
+{% block base %}
+  {% include "base/nav/header.html" %}
+  <div class="container">
+    <h1>{{ dish.name }}</h1>
+    <div class="fine-box transparent_bg">
+
+      <p>
+        <strong>Author: </strong>
+        <a href="{% url 'recipes:profile' dish.created_by.slug %}" style="color: yellow">
+          {{ dish.created_by.username }}
+        </a>
+      </p>
+      <p><strong>Dish Type:</strong> {{ dish.dish_type }}</p>
+      <p><strong>Dish Rating:</strong> {{ dish|average_dish_rating }}</p>
+      <p><strong>Cooking Time:</strong> {{ dish.cooking_time }} minutes</p>
+      <p><strong>Description:</strong> {{ dish.description }}</p>
+      <p><strong>Added:</strong> {{ dish.created_at }}</p>
+    </div>
+
+    <h3>Ingredients:</h3>
+    <ul class="ingredients-list ">
+      {% for ingredient in dish.ingredients.all %}
+        <li class="transparent_bg"><input type="checkbox"> {{ ingredient.ingredient.name }}, {{ ingredient.amount }}
+        </li>
+      {% endfor %}
+    </ul>
+
+    <h3>How to Cook:</h3>
+    <div class="fine-box transparent_bg">
+      {{ dish.how_to_cook }}
+    </div>
+
+    <div class="text-right">
+      <a href="{% url 'recipes:recipes-list' %}" class="btn btn-warning mr-3">Back to Dishes</a>
+      {% if dish|dish_is_saved:user %}
+        <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-light mr-3">Remove From Saved</a>
+      {% else %}
+        <a href="{% url 'recipes:recipe-save-remove' dish.slug %}" class="btn btn-outline-light mr-3">Save Dish</a>
+      {% endif %}
+      {% if not dish|dish_rated:user %}
+        <form action="" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Rate Dish</button>
+          {{ form.rating }}
+        </form>
+      {% else %}
+        <p>You already rated this dish</p>
+      {% endif %}
+      {% if dish.created_by == user %}
+        <a href="{% url 'recipes:recipe-update' dish.slug %}" class="btn btn-primary mr-3 ml-3">Update Recipe</a>
+        <a href="{% url 'recipes:recipe-delete' dish.slug %}" class="btn btn-danger mr-3">Delete Recipe</a>
+      {% endif %}
+    </div>
+
+  </div>
+  <br>
+{% endblock %}

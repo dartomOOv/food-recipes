@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block base %}
+  {% include "base/nav/header.html" %}
+  <div class="container ingredientamount-form">
+    <h1>
+      Create a New Dish Type
+    </h1>
+    
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form.errors.name }}
+      <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Dish Type Name</label>
+        {{ form.name }}
+      </div>
+      <button type="submit" class="btn btn-success">Create Dish Type</button>
+      <a href="{% url 'recipes:ingredient-amount-create' %}" class="btn btn-secondary">Back to Recipe Creation</a>
+    </form>
+  
+  </div>
+{% endblock %}

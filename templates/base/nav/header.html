@@ -1,0 +1,26 @@
+<header>
+  <div
+      class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-coral border-bottom shadow-sm error-page header">
+    <h5 class="my-0 mr-md-auto font-weight-normal text-white">Food Recipes</h5>
+    <div class="btn-toolbar">
+      <div class="btn-group mr-3">
+        <a class="btn btn-outline-light p-2" href="{% url 'recipes:recipes-list' %}">Home</a>
+      </div>
+      <div class="btn-group mr-3">
+        <a class="btn btn-outline-info p-2 text-white" href="{% url 'recipes:recipe-create' %}">Add dish</a>
+        <a class="btn btn-outline-info p-2 text-white" href="{% url 'recipes:saved_recipes' user.slug %}">
+          Saved dishes
+        </a>
+      </div>
+      <div class="btn-group mr-2">
+        <a class="btn btn-outline-warning p-2 text-white" href="{% url 'recipes:profile' user.slug %}">Profile</a>
+        
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger p-2">Logout</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% block base %}
+  {% include "base/nav/header.html" %}
+  <div class="container ingredientamount-form">
+    <h1>Create a New Category</h1>
+    
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form.errors.name }}
+      <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Category Name</label>
+        {{ form.name }}
+      </div>
+      <button type="submit" class="btn btn-success">Create Category</button>
+      <a href="{% url 'recipes:ingredient-create' %}" class="btn btn-secondary">Back to Ingredient Creation</a>
+    </form>
+  
+  </div>
+{% endblock %}
