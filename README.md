@@ -14,7 +14,7 @@ Python3 must be already installed
 git clone https://github.com/dartomOOv/food-recipes.git
 cd food-recipes
 python -m venv venv
-venv\Scripts\acivate
+venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py runserver
 ```
