@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% load object_filters %}
+{% block base %}
+  {% include "base/nav/header.html" %}
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center text-white">
+      <strong>Saved Recipes</strong>
+    </h1>
+    {% for query in queryset %}
+      <a href="{% url 'recipes:recipe-detail' query.dish.slug %}" class="dish-card">
+        <img src="https://via.placeholder.com/150" alt="Dish Image">
+        <div class="dish-info">
+          <h5>{{ query.dish.name }}</h5>
+          <small>
+            <strong>Author:</strong>
+            {{ query.dish.created_by.username }} {% if dish.created_by == user %}(You){% endif %}
+          </small>
+          <small>
+            <strong>Rating: </strong>
+            {{ query.dish|average_dish_rating }}
+          </small>
+          <small>
+            <strong>Time to cook: </strong>
+            {{ query.dish.cooking_time }} minutes
+          </small>
+          <small>
+            <strong>Dish type: </strong>
+            {{ query.dish.dish_type }}
+          </small>
+          <small>
+            <strong>Added: </strong>
+            {{ query.dish.created_at.day }}/{{ query.dish.created_at.month }}/{{ query.dish.created_at.year }}
+          </small>
+        </div>
+        <div class="dish-description-box transparent_bg">
+          <p class="dish-description">
+            {{ query.dish.description }}
+          </p>
+        </div>
+      </a>
+    {% empty %}
+      <h1 class="mt-5 text-center text-white">
+        <strong>No dish saved...</strong>
+      </h1>
+    {% endfor %}
+    {% include "base/pagination.html" %}
+  </div>
+{% endblock %}

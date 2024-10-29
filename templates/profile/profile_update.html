@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% block base %}
+  {% include "base/nav/header.html" %}
+  <div class="profile-update_form">
+    <h2>Update Profile</h2>
+    
+    <form action="" method="POST">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      {{ form.username }}
+      <label for="first_name">First Name</label>
+      {{ form.first_name }}
+      <label for="last_name">Last Name</label>
+      {{ form.last_name }}
+      <input type="submit" value="Update Profile" class="btn-warning">
+    </form>
+  
+  </div>
+{% endblock %}
